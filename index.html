@@ -55,18 +55,182 @@
         <div class="app-header-right"></div>
     </header>
 
+    <!-- Search Results Page Header -->
+    <header class="site-header hidden" id="searchResultsHeader">
+        <div class ="searchbar" id="flex">
+            <img src="images/loupe.svg">
+            <input type="text" id="searchResultsInput" placeholder="Что вы хотите найти?" readonly>
+        </div>
+        <a href="#" id="searchResultsProfilePicLink"><img src="images/profile_pic.svg"></a>
+        <a href="#"><img src="images/options.svg"></a>
+    </header>
+
     <!-- Search Modal -->
     <div id="searchModal" class="search-modal hidden">
         <div class="search-modal-content">
             <div class="search-modal-header">
+                <button id="searchBackButton" class="search-back-btn" aria-label="Назад">
+                    <img src="images/maki_arrow.svg" alt="Назад">
+                </button>
                 <input type="text" id="searchInput" placeholder="Что вы хотите найти?" class="search-modal-input">
-                <button id="closeSearchButton" class="search-close-btn" aria-label="Закрыть">×</button>
             </div>
-            <div id="searchResults" class="search-results">
-                <!-- Search results will appear here -->
-            </div>
-            <div class="search-modal-footer">
-                <button id="searchSubmitButton" class="search-submit-btn">Поиск</button>
+            <div class="search-modal-body">
+                <div class="search-category-section">
+                    <div class="search-category-header">
+                        <img src="images/fire-icon.svg" alt="" class="search-category-icon" onerror="this.style.display='none';">
+                        <h3 class="search-category-title">Часто ищут</h3>
+                    </div>
+                    <div class="carousel-wrap">
+                        <button class="carousel-control prev" aria-label="Предыдущие">‹</button>
+                        <section class="categories-carousel" id="searchCarousel1">
+                            <button class="category-btn">
+                                <img src="images/category-1.svg" alt="">
+                                <span>Категория 1</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-2.svg" alt="">
+                                <span>Категория 2</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-3.svg" alt="">
+                                <span>Категория 3</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-4.svg" alt="">
+                                <span>Категория 4</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-5.svg" alt="">
+                                <span>Категория 5</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-6.svg" alt="">
+                                <span>Категория 6</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-7.svg" alt="">
+                                <span>Категория 7</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-8.svg" alt="">
+                                <span>Категория 8</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-9.svg" alt="">
+                                <span>Категория 9</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-10.svg" alt="">
+                                <span>Категория 10</span>
+                            </button>
+                        </section>
+                        <button class="carousel-control next" aria-label="Следующие">›</button>
+                    </div>
+                </div>
+                <div class="search-category-section">
+                    <div class="search-category-header">
+                        <img src="images/gamepad-icon.svg" alt="" class="search-category-icon" onerror="this.style.display='none';">
+                        <h3 class="search-category-title">Игры</h3>
+                    </div>
+                    <div class="carousel-wrap">
+                        <button class="carousel-control prev" aria-label="Предыдущие">‹</button>
+                        <section class="categories-carousel" id="searchCarousel2">
+                            <button class="category-btn">
+                                <img src="images/category-1.svg" alt="">
+                                <span>Игра 1</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-2.svg" alt="">
+                                <span>Игра 2</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-3.svg" alt="">
+                                <span>Игра 3</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-4.svg" alt="">
+                                <span>Игра 4</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-5.svg" alt="">
+                                <span>Игра 5</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-6.svg" alt="">
+                                <span>Игра 6</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-7.svg" alt="">
+                                <span>Игра 7</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-8.svg" alt="">
+                                <span>Игра 8</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-9.svg" alt="">
+                                <span>Игра 9</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-10.svg" alt="">
+                                <span>Игра 10</span>
+                            </button>
+                        </section>
+                        <button class="carousel-control next" aria-label="Следующие">›</button>
+                    </div>
+                </div>
+                <div class="search-category-section">
+                    <div class="search-category-header">
+                        <img src="images/app-icon.svg" alt="" class="search-category-icon" onerror="this.style.display='none';">
+                        <h3 class="search-category-title">Приложения</h3>
+                    </div>
+                    <div class="carousel-wrap">
+                        <button class="carousel-control prev" aria-label="Предыдущие">‹</button>
+                        <section class="categories-carousel" id="searchCarousel3">
+                            <button class="category-btn">
+                                <img src="images/category-1.svg" alt="">
+                                <span>Приложение 1</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-2.svg" alt="">
+                                <span>Приложение 2</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-3.svg" alt="">
+                                <span>Приложение 3</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-4.svg" alt="">
+                                <span>Приложение 4</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-5.svg" alt="">
+                                <span>Приложение 5</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-6.svg" alt="">
+                                <span>Приложение 6</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-7.svg" alt="">
+                                <span>Приложение 7</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-8.svg" alt="">
+                                <span>Приложение 8</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-9.svg" alt="">
+                                <span>Приложение 9</span>
+                            </button>
+                            <button class="category-btn">
+                                <img src="images/category-10.svg" alt="">
+                                <span>Приложение 10</span>
+                            </button>
+                        </section>
+                        <button class="carousel-control next" aria-label="Следующие">›</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -361,11 +525,24 @@
             </div>
         </div>
         <!-- End Profile Page Container -->
+
+        <!-- Search Results Page Container -->
+        <div id="searchResultsPage" class="page-container hidden">
+            <div id="searchResultsPageContent" class="search-results-page-content">
+                <!-- Content will be dynamically rendered here -->
+            </div>
+        </div>
+        <!-- End Search Results Page Container -->
     </main>
 
     <!-- Fixed AI Assistant Button -->
     <button id="fixedAiButton" class="fixed-ai-button" aria-label="AI-Помощник">
         🤖
+    </button>
+
+    <!-- Fixed Back Button for Search Results -->
+    <button id="fixedBackButton" class="fixed-back-button hidden" aria-label="Назад">
+        ←
     </button>
 
 
@@ -565,6 +742,15 @@
                     carousel._ticking = false;
                 });
                 carousel._ticking = true;
+            }
+        });
+        
+        // Обработчик клика на категорию в главной карусели
+        carousel.addEventListener('click', (e) => {
+            const categoryBtn = e.target.closest('.category-btn');
+            if (categoryBtn) {
+                const categoryName = categoryBtn.querySelector('span')?.textContent || 'Категория';
+                window.location.hash = `#/search/${encodeURIComponent(categoryName)}`;
             }
         });
 
@@ -821,9 +1007,14 @@
         const appPageContent = document.getElementById('appPageContent');
         const profilePage = document.getElementById('profilePage');
         const profilePageContent = document.getElementById('profilePageContent');
+        const searchResultsPage = document.getElementById('searchResultsPage');
+        const searchResultsPageContent = document.getElementById('searchResultsPageContent');
         const mainHeader = document.getElementById('mainHeader');
         const appHeader = document.getElementById('appHeader');
         const profileHeader = document.getElementById('profileHeader');
+        const searchResultsHeader = document.getElementById('searchResultsHeader');
+        const searchResultsInput = document.getElementById('searchResultsInput');
+        const searchResultsProfilePicLink = document.getElementById('searchResultsProfilePicLink');
         const appBackButton = document.getElementById('appBackButton');
         const profileBackButton = document.getElementById('profileBackButton');
         const profilePicLink = document.getElementById('profilePicLink');
@@ -1207,8 +1398,19 @@
 
             homePage.classList.add('hidden');
             appPage.classList.remove('hidden');
+            profilePage.classList.add('hidden');
+            searchResultsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.remove('hidden');
+            profileHeader.classList.add('hidden');
+            searchResultsHeader.classList.add('hidden');
+            
+            // Hide back button, show AI button
+            const fixedBackButton = document.getElementById('fixedBackButton');
+            const fixedAiButton = document.getElementById('fixedAiButton');
+            if (fixedBackButton) fixedBackButton.classList.add('hidden');
+            if (fixedAiButton) fixedAiButton.classList.remove('hidden');
+            
             document.title = `StMaHack — Приложение`;
             window.scrollTo(0, 0); // Scroll to top when navigating to app page
             
@@ -1291,6 +1493,119 @@
         // Navigate to profile
         function navigateToProfile() {
             renderProfilePage();
+        }
+
+        // Render search results page
+        function renderSearchResultsPage(query) {
+            searchResultsPageContent.innerHTML = `
+                <div class="search-results-apps">
+                    <a href="#/app/1" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/ficon1.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 1</div>
+                            <div class="search-result-app-category">Категория 1</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.5</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/2" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/ficon2.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 2</div>
+                            <div class="search-result-app-category">Категория 2</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.3</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/3" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/ficon3.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 3</div>
+                            <div class="search-result-app-category">Категория 3</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.7</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/4" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/icon-large-1.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 4</div>
+                            <div class="search-result-app-category">Категория 4</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.2</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/5" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/icon-large-2.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 5</div>
+                            <div class="search-result-app-category">Категория 5</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.6</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/6" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/ficon1.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 6</div>
+                            <div class="search-result-app-category">Категория 6</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.4</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/app/7" class="search-result-app-item">
+                        <img class="search-result-app-icon" src="images/ficon2.svg" alt="">
+                        <div class="search-result-app-content">
+                            <div class="search-result-app-name">Приложение 7</div>
+                            <div class="search-result-app-category">Категория 7</div>
+                            <div class="search-result-app-rating">
+                                <span class="search-result-app-star">★</span>
+                                <span class="search-result-app-rating-value">4.8</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+            
+            // Set search query in input
+            if (searchResultsInput && query) {
+                searchResultsInput.value = query;
+            }
+            
+            homePage.classList.add('hidden');
+            appPage.classList.add('hidden');
+            profilePage.classList.add('hidden');
+            searchResultsPage.classList.remove('hidden');
+            mainHeader.classList.add('hidden');
+            appHeader.classList.add('hidden');
+            profileHeader.classList.add('hidden');
+            searchResultsHeader.classList.remove('hidden');
+            
+            // Show back button, hide AI button
+            const fixedBackButton = document.getElementById('fixedBackButton');
+            const fixedAiButton = document.getElementById('fixedAiButton');
+            if (fixedBackButton) fixedBackButton.classList.remove('hidden');
+            if (fixedAiButton) fixedAiButton.classList.add('hidden');
+            
+            document.title = 'StMaHack — Результаты поиска';
+            window.scrollTo(0, 0);
+        }
+
+        // Navigate to search results
+        function navigateToSearchResults(query) {
+            renderSearchResultsPage(query);
         }
         
         // Инициализация карусели предложений
@@ -1828,9 +2143,17 @@
             homePage.classList.remove('hidden');
             appPage.classList.add('hidden');
             profilePage.classList.add('hidden');
+            searchResultsPage.classList.add('hidden');
             mainHeader.classList.remove('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.add('hidden');
+            searchResultsHeader.classList.add('hidden');
+            
+            // Hide back button, show AI button
+            const fixedBackButton = document.getElementById('fixedBackButton');
+            const fixedAiButton = document.getElementById('fixedAiButton');
+            if (fixedBackButton) fixedBackButton.classList.add('hidden');
+            if (fixedAiButton) fixedAiButton.classList.remove('hidden');
             
             // Скрываем кнопку загрузки на главной странице
             const downloadBtn = document.getElementById('appDownloadBtn');
@@ -1853,6 +2176,9 @@
             if (hash.startsWith('#/app/')) {
                 const appId = hash.split('/')[2];
                 renderAppPage(appId);
+            } else if (hash.startsWith('#/search/')) {
+                const query = decodeURIComponent(hash.split('/').slice(2).join('/'));
+                navigateToSearchResults(query);
             } else {
                 navigateToHome();
             }
@@ -1870,6 +2196,30 @@
                 navigateToProfile();
             });
         }
+        
+        if (searchResultsProfilePicLink) {
+            searchResultsProfilePicLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToProfile();
+            });
+        }
+        
+        // Search results input click handler
+        if (searchResultsInput) {
+            searchResultsInput.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToHome();
+            });
+        }
+        
+        // Fixed back button handler
+        const fixedBackButton = document.getElementById('fixedBackButton');
+        if (fixedBackButton) {
+            fixedBackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToHome();
+            });
+        }
 
         if (profileBackButton) {
             profileBackButton.addEventListener('click', () => {
@@ -1880,21 +2230,197 @@
         // Search modal handlers
         const appSearchButton = document.getElementById('appSearchButton');
         const searchModal = document.getElementById('searchModal');
-        const closeSearchButton = document.getElementById('closeSearchButton');
-        const searchSubmitButton = document.getElementById('searchSubmitButton');
+        const searchBackButton = document.getElementById('searchBackButton');
         const searchInput = document.getElementById('searchInput');
         const mainSearchInput = document.querySelector('.searchbar input');
+        
+        // Store previous page state
+        let previousPageState = {
+            homePageVisible: true,
+            appPageVisible: false,
+            profilePageVisible: false,
+            mainHeaderVisible: true,
+            appHeaderVisible: false,
+            profileHeaderVisible: false
+        };
 
         function openSearch() {
+            // Save current page state
+            previousPageState = {
+                homePageVisible: !homePage.classList.contains('hidden'),
+                appPageVisible: !appPage.classList.contains('hidden'),
+                profilePageVisible: !profilePage.classList.contains('hidden'),
+                mainHeaderVisible: !mainHeader.classList.contains('hidden'),
+                appHeaderVisible: !appHeader.classList.contains('hidden'),
+                profileHeaderVisible: !profileHeader.classList.contains('hidden')
+            };
+            
             searchModal.classList.remove('hidden');
             searchInput.focus();
             document.body.style.overflow = 'hidden';
+            
+            // Initialize carousels in search modal
+            setTimeout(() => {
+                initSearchCarousels();
+                setupSearchCategoryClicks();
+            }, 100);
         }
 
         function closeSearch() {
             searchModal.classList.add('hidden');
             document.body.style.overflow = '';
             searchInput.value = '';
+            
+            // Restore previous page state
+            if (previousPageState.homePageVisible) {
+                homePage.classList.remove('hidden');
+            } else {
+                homePage.classList.add('hidden');
+            }
+            
+            if (previousPageState.appPageVisible) {
+                appPage.classList.remove('hidden');
+            } else {
+                appPage.classList.add('hidden');
+            }
+            
+            if (previousPageState.profilePageVisible) {
+                profilePage.classList.remove('hidden');
+            } else {
+                profilePage.classList.add('hidden');
+            }
+            
+            if (previousPageState.mainHeaderVisible) {
+                mainHeader.classList.remove('hidden');
+            } else {
+                mainHeader.classList.add('hidden');
+            }
+            
+            if (previousPageState.appHeaderVisible) {
+                appHeader.classList.remove('hidden');
+            } else {
+                appHeader.classList.add('hidden');
+            }
+            
+            if (previousPageState.profileHeaderVisible) {
+                profileHeader.classList.remove('hidden');
+            } else {
+                profileHeader.classList.add('hidden');
+            }
+        }
+        
+        // Initialize carousels in search modal (same logic as main carousel)
+        function initSearchCarousels() {
+            const searchCarousels = ['searchCarousel1', 'searchCarousel2', 'searchCarousel3'];
+            
+            searchCarousels.forEach((carouselId) => {
+                const carousel = document.getElementById(carouselId);
+                if (!carousel) return;
+                
+                const carouselWrap = carousel.closest('.carousel-wrap');
+                const prevBtn = carouselWrap ? carouselWrap.querySelector('.carousel-control.prev') : null;
+                const nextBtn = carouselWrap ? carouselWrap.querySelector('.carousel-control.next') : null;
+                
+                const items = carousel.querySelectorAll('.category-btn');
+                const itemsPerRow = 10;
+                
+                // Clone items for infinite scroll in both directions
+                (function prependClones() {
+                    const originals = Array.from(items).slice(0, itemsPerRow);
+                    for (let i = originals.length - 1; i >= 0; i--) {
+                        const c = originals[i].cloneNode(true);
+                        carousel.insertBefore(c, carousel.firstChild);
+                    }
+                })();
+                
+                (function appendClones() {
+                    const originals = Array.from(items).slice(0, itemsPerRow);
+                    originals.forEach(item => {
+                        const c = item.cloneNode(true);
+                        carousel.appendChild(c);
+                    });
+                })();
+                
+                function getMetrics() {
+                    const item = carousel.querySelector('.category-btn');
+                    const style = getComputedStyle(carousel);
+                    const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 12;
+                    const itemW = item ? item.offsetWidth : 120;
+                    return { itemW: itemW, gap: gap, step: itemW + gap };
+                }
+                
+                function computeUnitColumns() {
+                    const btns = Array.from(carousel.querySelectorAll('.category-btn'));
+                    const totalBtns = btns.length;
+                    let unitLen = Math.floor(totalBtns / 3);
+                    if (unitLen < 1) unitLen = Math.floor(totalBtns / 2);
+                    if (unitLen < 1) unitLen = totalBtns;
+                    return unitLen;
+                }
+                
+                function getUnitScrollWidth() {
+                    const m = getMetrics();
+                    const unitLen = computeUnitColumns();
+                    return m.step * unitLen;
+                }
+                
+                // Start in the middle (beginning of original set)
+                window.requestAnimationFrame(() => {
+                    const total = getUnitScrollWidth();
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = total;
+                    carousel.style.scrollBehavior = 'smooth';
+                });
+                
+                // Navigation handlers
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        const m = getMetrics();
+                        carousel.scrollBy({ left: m.step, behavior: 'smooth' });
+                    });
+                }
+                
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        const m = getMetrics();
+                        carousel.scrollBy({ left: -m.step, behavior: 'smooth' });
+                    });
+                }
+                
+                // Infinite scroll wrap in both directions
+                function handleWrap() {
+                    const total = getUnitScrollWidth();
+                    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                    
+                    // Wrap when reaching the end (clones on the right)
+                    // After cloning: [10 clones][10 originals][10 clones] = 30 total
+                    // total = width of 10 items (originals)
+                    // When scrollLeft >= total * 2, we're at the end of right clones
+                    // Also check if we've reached the actual max scroll position
+                    if (carousel.scrollLeft >= total * 2 - 1 || (maxScroll > 0 && carousel.scrollLeft >= maxScroll - 5)) {
+                        carousel.style.scrollBehavior = 'auto';
+                        const newScroll = carousel.scrollLeft - total;
+                        carousel.scrollLeft = newScroll >= 0 ? newScroll : total;
+                        carousel.style.scrollBehavior = 'smooth';
+                    } 
+                    // Wrap when reaching the beginning (clones on the left)
+                    else if (carousel.scrollLeft <= 0) {
+                        carousel.style.scrollBehavior = 'auto';
+                        carousel.scrollLeft = carousel.scrollLeft + total;
+                        carousel.style.scrollBehavior = 'smooth';
+                    }
+                }
+                
+                carousel.addEventListener('scroll', () => {
+                    if (!carousel._ticking) {
+                        window.requestAnimationFrame(() => {
+                            handleWrap();
+                            carousel._ticking = false;
+                        });
+                        carousel._ticking = true;
+                    }
+                });
+            });
         }
 
         // Открытие модального окна при клике на поле поиска в основном header
@@ -1918,24 +2444,11 @@
             openSearch();
         });
         
-        closeSearchButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            closeSearch();
-        });
-        
-        // Обработчик для кнопки поиска
-        if (searchSubmitButton) {
-            searchSubmitButton.addEventListener('click', (e) => {
+        if (searchBackButton) {
+            searchBackButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                const query = searchInput.value.trim();
-                if (query) {
-                    // Здесь можно добавить логику поиска
-                    console.log('Поиск:', query);
-                    // Закрываем модальное окно после поиска
-                    closeSearch();
-                }
+                closeSearch();
             });
         }
         
@@ -1946,22 +2459,30 @@
                     e.preventDefault();
                     const query = searchInput.value.trim();
                     if (query) {
-                        // Здесь можно добавить логику поиска
-                        console.log('Поиск:', query);
-                        // Закрываем модальное окно после поиска
                         closeSearch();
+                        window.location.hash = `#/search/${encodeURIComponent(query)}`;
                     }
                 }
             });
         }
         
-        // Закрываем при клике на overlay (фон)
-        searchModal.addEventListener('click', (e) => {
-            if (e.target === searchModal) {
-                e.preventDefault();
-                closeSearch();
-            }
-        });
+        // Обработчик клика на категорию в каруселях поиска
+        function setupSearchCategoryClicks() {
+            const searchCarousels = ['searchCarousel1', 'searchCarousel2', 'searchCarousel3'];
+            searchCarousels.forEach((carouselId) => {
+                const carousel = document.getElementById(carouselId);
+                if (!carousel) return;
+                
+                carousel.addEventListener('click', (e) => {
+                    const categoryBtn = e.target.closest('.category-btn');
+                    if (categoryBtn) {
+                        const categoryName = categoryBtn.querySelector('span')?.textContent || 'Категория';
+                        closeSearch();
+                        window.location.hash = `#/search/${encodeURIComponent(categoryName)}`;
+                    }
+                });
+            });
+        }
         
         // Предотвращаем закрытие при клике на содержимое модального окна
         const searchModalContent = document.querySelector('.search-modal-content');
