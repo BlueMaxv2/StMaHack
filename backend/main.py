@@ -16,9 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Отдача фронтенда
-frontend_path = os.path.join(os.path.dirname(__file__), "../frontend")
-app.mount("/frontend", StaticFiles(directory=frontend_path, html=True), name="frontend")
+
 
 # Модель данных для POST
 class SubmitData(BaseModel):
@@ -35,3 +33,8 @@ def submit(data: SubmitData):
 @app.post("/api/click")
 def click(data: SubmitData):
     return {"status": "ok", "received": data}
+
+
+# ОТКРЫТИЕ ПЕРВОЙ СТРАНИЦЫ
+frontend_dir = os.path.join(os.path.dirname(__file__), "../frontend")
+app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
