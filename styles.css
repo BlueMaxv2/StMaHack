@@ -842,6 +842,716 @@ a {
     margin: 0 auto;
 }
 
+/* App Info Block */
+.app-info-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.app-info-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.app-info-icon-large {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.app-info-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+}
+
+.app-info-row-small {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.app-info-icon-small {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.app-info-text-large {
+    font-size: 22px;
+    color: #333;
+    font-weight: 500;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.app-info-text-small {
+    font-size: 13px;
+    color: #666;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.app-info-text-right {
+    margin-left: auto;
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+/* App Carousel */
+.app-carousel-wrap {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 1rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.app-carousel {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.app-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.app-carousel-image {
+    width: calc(60vw - 30px);
+    min-width: calc(60vw - 30px);
+    max-width: calc(60vw - 30px);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+    border-radius: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.app-carousel-image:hover {
+    transform: scale(1.02);
+}
+
+/* App Description */
+.app-description-container {
+    margin-top: 1rem;
+}
+
+.app-description-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-description-text.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+}
+
+.app-description-toggle {
+    background: none;
+    border: none;
+    color: #0077FF;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    text-align: left;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.app-description-toggle:hover {
+    opacity: 0.8;
+}
+
+/* App Reviews Block */
+.app-reviews-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.app-reviews-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.app-rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    height: 32px;
+}
+
+.app-rating-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    line-height: 32px;
+}
+
+.app-stars-container {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    height: 32px;
+}
+
+.app-star {
+    font-size: 24px;
+    color: #0077FF;
+    line-height: 32px;
+    -webkit-text-stroke: 1px #0077FF;
+    -webkit-text-fill-color: transparent;
+}
+
+.app-star.filled {
+    -webkit-text-fill-color: #0077FF;
+}
+
+.app-star.half-filled {
+    background: linear-gradient(to right, #0077FF 50%, transparent 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.app-rating-count {
+    font-size: 14px;
+    color: #2D3436;
+    line-height: 32px;
+}
+
+.app-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.app-review-item {
+    background-color: #F1F1F1;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.app-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.app-review-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.app-review-author {
+    font-size: 14px;
+    font-weight: 500;
+    color: #636E72;
+}
+
+.app-review-date {
+    font-size: 12px;
+    color: #636E72;
+}
+
+.app-review-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.app-review-star {
+    font-size: 16px;
+    color: #0077FF;
+    -webkit-text-stroke: 1px #0077FF;
+    -webkit-text-fill-color: transparent;
+}
+
+.app-review-star.filled {
+    -webkit-text-fill-color: #0077FF;
+}
+
+.app-review-text-container {
+    margin-top: 0.5rem;
+}
+
+.app-review-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.app-review-text.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-review-toggle {
+    background: none;
+    border: none;
+    color: #0077FF;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    text-align: left;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.app-review-toggle:hover {
+    opacity: 0.8;
+}
+
+.app-review-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.app-review-like-btn,
+.app-review-dislike-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    color: #666;
+}
+
+.app-review-like-btn:hover {
+    background-color: rgba(0, 119, 255, 0.1);
+}
+
+.app-review-dislike-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.app-review-like-btn.active {
+    background-color: rgba(0, 119, 255, 0.15);
+    color: #0077FF;
+}
+
+.app-review-dislike-btn.active {
+    background-color: rgba(255, 0, 0, 0.15);
+    color: #ff4444;
+}
+
+.app-review-like-icon,
+.app-review-dislike-icon {
+    font-size: 18px;
+}
+
+.app-review-like-count,
+.app-review-dislike-count {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.app-review-hidden {
+    display: none;
+}
+
+.app-show-all-reviews-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: #0077FF;
+    border: 2px solid #0077FF;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+}
+
+.app-show-all-reviews-btn:hover {
+    background-color: rgba(0, 119, 255, 0.1);
+}
+
+.app-write-review-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background-color: #0077FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.app-write-review-btn:hover {
+    background-color: #0066cc;
+}
+
+/* Review Modal */
+.review-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.review-modal.hidden {
+    display: none !important;
+}
+
+.review-modal-content {
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.review-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.review-close-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.review-close-btn:hover {
+    background-color: #f5f5f5;
+}
+
+.review-modal-body {
+    padding: 1.5rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.review-rating-selector {
+    margin-bottom: 1.5rem;
+}
+
+.review-rating-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+.review-stars-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.review-star-select {
+    font-size: 32px;
+    color: #0077FF;
+    cursor: pointer;
+    -webkit-text-stroke: 1px #0077FF;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.2s;
+}
+
+.review-star-select:hover {
+    transform: scale(1.1);
+}
+
+.review-star-select.selected {
+    -webkit-text-fill-color: #0077FF;
+}
+
+.review-text-field {
+    margin-top: 1rem;
+}
+
+.review-text-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+.review-text-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.review-text-input:focus {
+    border-color: #0077FF;
+}
+
+.review-modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.review-submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background-color: #0077FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.review-submit-btn:hover {
+    background-color: #0066cc;
+}
+
+/* App Developer Block */
+.app-developer-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-developer-label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.app-developer-link {
+    font-size: 14px;
+    color: #0077FF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.app-developer-link:hover {
+    opacity: 0.8;
+}
+
+/* App Suggestions Block */
+.app-suggestions-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.app-suggestions-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.app-suggestions-carousel-wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.app-suggestions-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 1rem;
+}
+
+.app-suggestions-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.app-suggestions-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.app-suggestion-column {
+    min-width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.app-suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    background-color: #F1ECEF;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+}
+
+.app-suggestion-item:hover {
+    background-color: #e8e0e4;
+}
+
+.app-suggestion-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.app-suggestion-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.app-suggestion-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.app-suggestion-category {
+    font-size: 12px;
+    color: #636E72;
+}
+
+.app-suggestion-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 12px;
+    color: #636E72;
+}
+
+.app-suggestion-star {
+    font-size: 12px;
+    color: #636E72;
+}
+
+@media (min-width: 600px) {
+    .app-suggestion-column {
+        min-width: calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (min-width: 900px) {
+    .app-suggestion-column {
+        min-width: calc(33.333% - 1.33rem);
+        max-width: calc(33.333% - 1.33rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-carousel-image {
+        width: calc(70vw - 20px);
+        min-width: calc(70vw - 20px);
+        max-width: calc(70vw - 20px);
+    }
+}
+
+@media (min-width: 769px) {
+    .app-carousel-image {
+        width: calc(50vw - 40px);
+        min-width: calc(50vw - 40px);
+        max-width: calc(50vw - 40px);
+    }
+}
+
 .app-icon-large {
     width: 96px;
     height: 96px;

@@ -255,6 +255,35 @@
         <img class="modal-image" id="modalImage" src="" alt="">
     </div>
 
+    <!-- Review Modal -->
+    <div id="reviewModal" class="review-modal hidden">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3 class="review-modal-title">Написать отзыв</h3>
+                <button id="closeReviewButton" class="review-close-btn" aria-label="Закрыть">×</button>
+            </div>
+            <div class="review-modal-body">
+                <div class="review-rating-selector">
+                    <label class="review-rating-label">Оценка:</label>
+                    <div class="review-stars-selector" id="reviewStarsSelector">
+                        <span class="review-star-select" data-rating="1">★</span>
+                        <span class="review-star-select" data-rating="2">★</span>
+                        <span class="review-star-select" data-rating="3">★</span>
+                        <span class="review-star-select" data-rating="4">★</span>
+                        <span class="review-star-select" data-rating="5">★</span>
+                    </div>
+                </div>
+                <div class="review-text-field">
+                    <label class="review-text-label">Отзыв:</label>
+                    <textarea id="reviewTextInput" class="review-text-input" placeholder="Напишите ваш отзыв..." rows="6"></textarea>
+                </div>
+            </div>
+            <div class="review-modal-footer">
+                <button id="submitReviewButton" class="review-submit-btn">Отправить</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const carousel = document.getElementById('carousel');
         const prevBtn = document.querySelector('.carousel-control.prev');
@@ -575,7 +604,324 @@
         // Render app page
         function renderAppPage(appId) {
             // Очищаем контент страницы приложения
-            appPageContent.innerHTML = '';
+            appPageContent.innerHTML = `
+                <div class="app-info-block">
+                    <div class="app-info-row">
+                        <img class="app-info-icon-large" src="images/ficon1.svg" alt="">
+                        <span class="app-info-title">Название приложения</span>
+                    </div>
+                    <div class="app-info-row-small">
+                        <img class="app-info-icon-small" src="images/fsmall1.svg" alt="">
+                        <span class="app-info-text-large">4,0</span>
+                        <span class="app-info-text-small">16291 оценка</span>
+                        <span class="app-info-text-small app-info-text-right">11млн+ скачиваний</span>
+                    </div>
+                </div>
+                <div class="app-carousel-wrap">
+                    <div class="app-carousel" id="appCarousel">
+                        <img src="images/yandex_test1.webp" alt="" class="app-carousel-image">
+                        <img src="images/yandex_test2.webp" alt="" class="app-carousel-image">
+                        <img src="images/yandex_test3.webp" alt="" class="app-carousel-image">
+                        <img src="images/yandex_test1.webp" alt="" class="app-carousel-image">
+                        <img src="images/yandex_test2.webp" alt="" class="app-carousel-image">
+                    </div>
+                    <div class="app-description-container">
+                        <div class="app-description-text" id="appDescription">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                        </div>
+                        <button class="app-description-toggle" id="appDescriptionToggle" style="display: none;">Ещё...</button>
+                    </div>
+                </div>
+                <div class="app-reviews-block">
+                    <h2 class="app-reviews-title">Отзывы и оценки</h2>
+                    <div class="app-rating-summary">
+                        <span class="app-rating-value">4.5</span>
+                        <div class="app-stars-container" id="appStarsContainer">
+                            <span class="app-star" data-rating="1">★</span>
+                            <span class="app-star" data-rating="2">★</span>
+                            <span class="app-star" data-rating="3">★</span>
+                            <span class="app-star" data-rating="4">★</span>
+                            <span class="app-star" data-rating="5">★</span>
+                        </div>
+                        <span class="app-rating-count">16291 оценка</span>
+                    </div>
+                    <div class="app-reviews-list" id="appReviewsList">
+                        <div class="app-review-item" data-review-id="1">
+                            <div class="app-review-header">
+                                <div class="app-review-author-info">
+                                    <span class="app-review-author">Иван Иванов</span>
+                                    <span class="app-review-date">15.01.2024</span>
+                                </div>
+                                <div class="app-review-rating">
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star">★</span>
+                                </div>
+                            </div>
+                            <div class="app-review-text-container">
+                                <div class="app-review-text" data-review-id="1">
+                                    Отличное приложение! Очень удобное и функциональное. Рекомендую всем попробовать.
+                                </div>
+                                <button class="app-review-toggle" data-review-id="1" style="display: none;">Ещё...</button>
+                            </div>
+                            <div class="app-review-actions">
+                                <button class="app-review-like-btn" data-review-id="1">
+                                    <span class="app-review-like-icon">👍</span>
+                                    <span class="app-review-like-count">12</span>
+                                </button>
+                                <button class="app-review-dislike-btn" data-review-id="1">
+                                    <span class="app-review-dislike-icon">👎</span>
+                                    <span class="app-review-dislike-count">2</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="app-review-item" data-review-id="2">
+                            <div class="app-review-header">
+                                <div class="app-review-author-info">
+                                    <span class="app-review-author">Мария Петрова</span>
+                                    <span class="app-review-date">10.01.2024</span>
+                                </div>
+                                <div class="app-review-rating">
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                </div>
+                            </div>
+                            <div class="app-review-text-container">
+                                <div class="app-review-text" data-review-id="2">
+                                    Превосходное приложение! Использую его каждый день. Интерфейс интуитивно понятный, все функции работают отлично. Очень довольна покупкой и рекомендую всем друзьям. Качество на высшем уровне!
+                                </div>
+                                <button class="app-review-toggle" data-review-id="2" style="display: none;">Ещё...</button>
+                            </div>
+                            <div class="app-review-actions">
+                                <button class="app-review-like-btn" data-review-id="2">
+                                    <span class="app-review-like-icon">👍</span>
+                                    <span class="app-review-like-count">45</span>
+                                </button>
+                                <button class="app-review-dislike-btn" data-review-id="2">
+                                    <span class="app-review-dislike-icon">👎</span>
+                                    <span class="app-review-dislike-count">1</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="app-review-item app-review-hidden" data-review-id="3">
+                            <div class="app-review-header">
+                                <div class="app-review-author-info">
+                                    <span class="app-review-author">Алексей Смирнов</span>
+                                    <span class="app-review-date">08.01.2024</span>
+                                </div>
+                                <div class="app-review-rating">
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star">★</span>
+                                    <span class="app-review-star">★</span>
+                                </div>
+                            </div>
+                            <div class="app-review-text-container">
+                                <div class="app-review-text" data-review-id="3">
+                                    Хорошее приложение, но есть что улучшить. В целом функционал работает, но иногда возникают небольшие проблемы.
+                                </div>
+                                <button class="app-review-toggle" data-review-id="3" style="display: none;">Ещё...</button>
+                            </div>
+                            <div class="app-review-actions">
+                                <button class="app-review-like-btn" data-review-id="3">
+                                    <span class="app-review-like-icon">👍</span>
+                                    <span class="app-review-like-count">8</span>
+                                </button>
+                                <button class="app-review-dislike-btn" data-review-id="3">
+                                    <span class="app-review-dislike-icon">👎</span>
+                                    <span class="app-review-dislike-count">5</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="app-review-item app-review-hidden" data-review-id="4">
+                            <div class="app-review-header">
+                                <div class="app-review-author-info">
+                                    <span class="app-review-author">Елена Козлова</span>
+                                    <span class="app-review-date">05.01.2024</span>
+                                </div>
+                                <div class="app-review-rating">
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star">★</span>
+                                </div>
+                            </div>
+                            <div class="app-review-text-container">
+                                <div class="app-review-text" data-review-id="4">
+                                    Отличный интерфейс, все интуитивно понятно. Приложение работает стабильно, рекомендую!
+                                </div>
+                                <button class="app-review-toggle" data-review-id="4" style="display: none;">Ещё...</button>
+                            </div>
+                            <div class="app-review-actions">
+                                <button class="app-review-like-btn" data-review-id="4">
+                                    <span class="app-review-like-icon">👍</span>
+                                    <span class="app-review-like-count">23</span>
+                                </button>
+                                <button class="app-review-dislike-btn" data-review-id="4">
+                                    <span class="app-review-dislike-icon">👎</span>
+                                    <span class="app-review-dislike-count">0</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="app-review-item app-review-hidden" data-review-id="5">
+                            <div class="app-review-header">
+                                <div class="app-review-author-info">
+                                    <span class="app-review-author">Дмитрий Волков</span>
+                                    <span class="app-review-date">03.01.2024</span>
+                                </div>
+                                <div class="app-review-rating">
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star filled">★</span>
+                                    <span class="app-review-star">★</span>
+                                    <span class="app-review-star">★</span>
+                                    <span class="app-review-star">★</span>
+                                </div>
+                            </div>
+                            <div class="app-review-text-container">
+                                <div class="app-review-text" data-review-id="5">
+                                    Не очень понравилось. Много багов, интерфейс неудобный. Надеюсь, разработчики исправят проблемы в следующих обновлениях.
+                                </div>
+                                <button class="app-review-toggle" data-review-id="5" style="display: none;">Ещё...</button>
+                            </div>
+                            <div class="app-review-actions">
+                                <button class="app-review-like-btn" data-review-id="5">
+                                    <span class="app-review-like-icon">👍</span>
+                                    <span class="app-review-like-count">3</span>
+                                </button>
+                                <button class="app-review-dislike-btn" data-review-id="5">
+                                    <span class="app-review-dislike-icon">👎</span>
+                                    <span class="app-review-dislike-count">15</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="app-show-all-reviews-btn" id="appShowAllReviewsBtn">Показать все отзывы</button>
+                    <button class="app-write-review-btn" id="appWriteReviewBtn">Написать отзыв</button>
+                </div>
+                <div class="app-developer-block">
+                    <span class="app-developer-label">Разработчик</span>
+                    <a href="#" class="app-developer-link">Название разработчика</a>
+                </div>
+                <div class="app-suggestions-block">
+                    <h2 class="app-suggestions-title">Возможно вам понравится</h2>
+                    <div class="app-suggestions-carousel-wrap">
+                        <div class="app-suggestions-carousel" id="appSuggestionsCarousel">
+                            <div class="app-suggestion-column">
+                                <a href="#/app/1" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon1.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 1</div>
+                                        <div class="app-suggestion-category">Категория 1</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.5</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/2" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon2.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 2</div>
+                                        <div class="app-suggestion-category">Категория 2</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.2</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/3" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon3.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 3</div>
+                                        <div class="app-suggestion-category">Категория 3</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.8</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="app-suggestion-column">
+                                <a href="#/app/4" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/icon-large-1.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 4</div>
+                                        <div class="app-suggestion-category">Категория 4</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.0</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/5" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/icon-large-2.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 5</div>
+                                        <div class="app-suggestion-category">Категория 5</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.6</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/6" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/icon-large-3.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 6</div>
+                                        <div class="app-suggestion-category">Категория 6</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.3</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="app-suggestion-column">
+                                <a href="#/app/1" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon1.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 7</div>
+                                        <div class="app-suggestion-category">Категория 7</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.7</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/2" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon2.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 8</div>
+                                        <div class="app-suggestion-category">Категория 8</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.4</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#/app/3" class="app-suggestion-item">
+                                    <img class="app-suggestion-icon" src="images/ficon3.svg" alt="">
+                                    <div class="app-suggestion-content">
+                                        <div class="app-suggestion-name">Приложение 9</div>
+                                        <div class="app-suggestion-category">Категория 9</div>
+                                        <div class="app-suggestion-rating">
+                                            <span class="app-suggestion-star">★</span>
+                                            <span class="app-suggestion-rating-value">4.9</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
             
             // Сохраняем appId в data-атрибут для будущего использования
             appPageContent.setAttribute('data-app-id', appId);
@@ -585,6 +931,533 @@
             mainHeader.classList.add('hidden');
             appHeader.classList.remove('hidden');
             document.title = `StMaHack — Приложение`;
+            window.scrollTo(0, 0); // Scroll to top when navigating to app page
+            
+            // Инициализация карусели для страницы приложения
+            initAppCarousel();
+            
+            // Инициализация раскрывающегося описания
+            initAppDescription();
+            
+            // Инициализация блока отзывов
+            initAppReviews();
+            
+            // Инициализация карусели предложений
+            initAppSuggestionsCarousel();
+        }
+        
+        // Инициализация карусели предложений
+        function initAppSuggestionsCarousel() {
+            const suggestionsCarousel = document.getElementById('appSuggestionsCarousel');
+            if (!suggestionsCarousel) return;
+            
+            // Начальная позиция - первый столбец
+            suggestionsCarousel.scrollLeft = 0;
+        }
+        
+        // Инициализация раскрывающегося описания
+        function initAppDescription() {
+            const descriptionText = document.getElementById('appDescription');
+            const toggleButton = document.getElementById('appDescriptionToggle');
+            
+            if (!descriptionText || !toggleButton) return;
+            
+            // Проверяем, нужно ли показывать кнопку "Ещё..."
+            function checkDescriptionHeight() {
+                // Временно убираем ограничение для проверки высоты
+                const wasExpanded = descriptionText.classList.contains('expanded');
+                descriptionText.classList.remove('expanded');
+                
+                const lineHeight = parseFloat(getComputedStyle(descriptionText).lineHeight);
+                const maxHeight = lineHeight * 3; // 3 строки
+                const actualHeight = descriptionText.scrollHeight;
+                
+                // Восстанавливаем состояние
+                if (wasExpanded) {
+                    descriptionText.classList.add('expanded');
+                }
+                
+                // Показываем кнопку только если текст больше 3 строк
+                if (actualHeight > maxHeight) {
+                    toggleButton.style.display = 'block';
+                } else {
+                    toggleButton.style.display = 'none';
+                }
+            }
+            
+            // Проверяем при загрузке
+            setTimeout(() => {
+                checkDescriptionHeight();
+            }, 100);
+            
+            // Обработчик клика на кнопку "Ещё..."
+            toggleButton.addEventListener('click', () => {
+                const isExpanded = descriptionText.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // Сворачиваем
+                    descriptionText.classList.remove('expanded');
+                    toggleButton.textContent = 'Ещё...';
+                } else {
+                    // Раскрываем
+                    descriptionText.classList.add('expanded');
+                    toggleButton.textContent = 'Свернуть';
+                }
+            });
+        }
+        
+        // Инициализация блока отзывов
+        function initAppReviews() {
+            // Инициализация звезд в блоке оценки
+            const ratingValue = 4.5;
+            const starsContainer = document.getElementById('appStarsContainer');
+            if (starsContainer) {
+                const stars = starsContainer.querySelectorAll('.app-star');
+                stars.forEach((star, index) => {
+                    const starRating = index + 1;
+                    if (starRating <= Math.floor(ratingValue)) {
+                        star.classList.add('filled');
+                    } else if (starRating === Math.ceil(ratingValue) && ratingValue % 1 >= 0.5) {
+                        star.classList.add('half-filled');
+                    }
+                });
+            }
+            
+            // Показ/скрытие всех отзывов
+            const showAllReviewsBtn = document.getElementById('appShowAllReviewsBtn');
+            const allReviewItems = document.querySelectorAll('.app-review-item');
+            const hiddenReviewItems = document.querySelectorAll('.app-review-item.app-review-hidden');
+            let allReviewsShown = false;
+            
+            if (showAllReviewsBtn && hiddenReviewItems.length > 0) {
+                showAllReviewsBtn.addEventListener('click', () => {
+                    if (allReviewsShown) {
+                        // Скрываем дополнительные отзывы
+                        hiddenReviewItems.forEach(item => {
+                            item.classList.add('app-review-hidden');
+                        });
+                        showAllReviewsBtn.textContent = 'Показать все отзывы';
+                        allReviewsShown = false;
+                    } else {
+                        // Показываем все отзывы
+                        hiddenReviewItems.forEach(item => {
+                            item.classList.remove('app-review-hidden');
+                        });
+                        showAllReviewsBtn.textContent = 'Скрыть отзывы';
+                        allReviewsShown = true;
+                    }
+                });
+            } else if (showAllReviewsBtn && hiddenReviewItems.length === 0) {
+                // Если нет скрытых отзывов, скрываем кнопку
+                showAllReviewsBtn.style.display = 'none';
+            }
+            
+            // Система лайков и дизлайков
+            const likeButtons = document.querySelectorAll('.app-review-like-btn');
+            const dislikeButtons = document.querySelectorAll('.app-review-dislike-btn');
+            
+            // Хранилище состояний лайков/дизлайков (в реальном приложении это было бы на сервере)
+            const reviewReactions = {};
+            
+            likeButtons.forEach(btn => {
+                const reviewId = btn.getAttribute('data-review-id');
+                const countElement = btn.querySelector('.app-review-like-count');
+                
+                // Инициализация состояния
+                if (!reviewReactions[reviewId]) {
+                    reviewReactions[reviewId] = { liked: false, disliked: false };
+                }
+                
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const currentCount = parseInt(countElement.textContent) || 0;
+                    const dislikeBtn = document.querySelector(`.app-review-dislike-btn[data-review-id="${reviewId}"]`);
+                    
+                    if (reviewReactions[reviewId].liked) {
+                        // Убираем лайк
+                        reviewReactions[reviewId].liked = false;
+                        btn.classList.remove('active');
+                        countElement.textContent = Math.max(0, currentCount - 1);
+                    } else {
+                        // Ставим лайк
+                        reviewReactions[reviewId].liked = true;
+                        btn.classList.add('active');
+                        countElement.textContent = currentCount + 1;
+                        
+                        // Всегда сбрасываем дизлайк если он был
+                        if (dislikeBtn && reviewReactions[reviewId].disliked) {
+                            reviewReactions[reviewId].disliked = false;
+                            dislikeBtn.classList.remove('active');
+                            const dislikeCount = dislikeBtn.querySelector('.app-review-dislike-count');
+                            const currentDislikeCount = parseInt(dislikeCount.textContent) || 0;
+                            dislikeCount.textContent = Math.max(0, currentDislikeCount - 1);
+                        }
+                    }
+                });
+            });
+            
+            dislikeButtons.forEach(btn => {
+                const reviewId = btn.getAttribute('data-review-id');
+                const countElement = btn.querySelector('.app-review-dislike-count');
+                
+                // Инициализация состояния
+                if (!reviewReactions[reviewId]) {
+                    reviewReactions[reviewId] = { liked: false, disliked: false };
+                }
+                
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const currentCount = parseInt(countElement.textContent) || 0;
+                    const likeBtn = document.querySelector(`.app-review-like-btn[data-review-id="${reviewId}"]`);
+                    
+                    if (reviewReactions[reviewId].disliked) {
+                        // Убираем дизлайк
+                        reviewReactions[reviewId].disliked = false;
+                        btn.classList.remove('active');
+                        countElement.textContent = Math.max(0, currentCount - 1);
+                    } else {
+                        // Ставим дизлайк
+                        reviewReactions[reviewId].disliked = true;
+                        btn.classList.add('active');
+                        countElement.textContent = currentCount + 1;
+                        
+                        // Всегда сбрасываем лайк если он был
+                        if (likeBtn && reviewReactions[reviewId].liked) {
+                            reviewReactions[reviewId].liked = false;
+                            likeBtn.classList.remove('active');
+                            const likeCount = likeBtn.querySelector('.app-review-like-count');
+                            const currentLikeCount = parseInt(likeCount.textContent) || 0;
+                            likeCount.textContent = Math.max(0, currentLikeCount - 1);
+                        }
+                    }
+                });
+            });
+            
+            // Инициализация раскрывающихся отзывов
+            const reviewTexts = document.querySelectorAll('.app-review-text');
+            reviewTexts.forEach(reviewText => {
+                const reviewId = reviewText.getAttribute('data-review-id');
+                const toggleButton = document.querySelector(`.app-review-toggle[data-review-id="${reviewId}"]`);
+                
+                if (!toggleButton) return;
+                
+                function checkReviewHeight() {
+                    const wasCollapsed = reviewText.classList.contains('collapsed');
+                    reviewText.classList.remove('collapsed');
+                    
+                    const lineHeight = parseFloat(getComputedStyle(reviewText).lineHeight);
+                    const maxHeight = lineHeight * 3;
+                    const actualHeight = reviewText.scrollHeight;
+                    
+                    if (wasCollapsed) {
+                        reviewText.classList.add('collapsed');
+                    }
+                    
+                    if (actualHeight > maxHeight) {
+                        toggleButton.style.display = 'block';
+                        if (!wasCollapsed) {
+                            reviewText.classList.add('collapsed');
+                        }
+                    } else {
+                        toggleButton.style.display = 'none';
+                    }
+                }
+                
+                setTimeout(() => {
+                    checkReviewHeight();
+                }, 100);
+                
+                toggleButton.addEventListener('click', () => {
+                    const isExpanded = !reviewText.classList.contains('collapsed');
+                    
+                    if (isExpanded) {
+                        reviewText.classList.add('collapsed');
+                        toggleButton.textContent = 'Ещё...';
+                    } else {
+                        reviewText.classList.remove('collapsed');
+                        toggleButton.textContent = 'Свернуть';
+                    }
+                });
+            });
+            
+            // Модальное окно для написания отзыва
+            const writeReviewBtn = document.getElementById('appWriteReviewBtn');
+            const reviewModal = document.getElementById('reviewModal');
+            const closeReviewButton = document.getElementById('closeReviewButton');
+            const submitReviewButton = document.getElementById('submitReviewButton');
+            const reviewStarsSelector = document.getElementById('reviewStarsSelector');
+            const reviewTextInput = document.getElementById('reviewTextInput');
+            const reviewModalContent = reviewModal ? reviewModal.querySelector('.review-modal-content') : null; // Get content element
+            
+            let selectedRating = 0;
+            
+            if (writeReviewBtn && reviewModal) {
+                writeReviewBtn.addEventListener('click', () => {
+                    reviewModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    selectedRating = 0;
+                    updateReviewStars(0);
+                });
+            }
+            
+            if (closeReviewButton) {
+                closeReviewButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stop propagation
+                    reviewModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    reviewTextInput.value = '';
+                    selectedRating = 0;
+                    updateReviewStars(0);
+                });
+            }
+            
+            reviewModal?.addEventListener('click', (e) => {
+                if (e.target === reviewModal) {
+                    reviewModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    reviewTextInput.value = '';
+                    selectedRating = 0;
+                    updateReviewStars(0);
+                }
+            });
+
+            if (reviewModalContent) { // Add event listener for content
+                reviewModalContent.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent clicks inside content from closing modal
+                });
+            }
+            
+            // Выбор оценки звездами
+            function updateReviewStars(rating) {
+                if (!reviewStarsSelector) return;
+                const stars = reviewStarsSelector.querySelectorAll('.review-star-select');
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('selected');
+                    } else {
+                        star.classList.remove('selected');
+                    }
+                });
+            }
+            
+            if (reviewStarsSelector) {
+                const stars = reviewStarsSelector.querySelectorAll('.review-star-select');
+                stars.forEach((star) => {
+                    star.addEventListener('click', () => {
+                        selectedRating = parseInt(star.getAttribute('data-rating'));
+                        updateReviewStars(selectedRating);
+                    });
+                    
+                    star.addEventListener('mouseenter', () => {
+                        const hoverRating = parseInt(star.getAttribute('data-rating'));
+                        updateReviewStars(hoverRating);
+                    });
+                });
+                
+                reviewStarsSelector.addEventListener('mouseleave', () => {
+                    updateReviewStars(selectedRating);
+                });
+            }
+            
+            // Отправка отзыва
+            if (submitReviewButton) {
+                submitReviewButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stop propagation
+                    if (selectedRating === 0) {
+                        alert('Пожалуйста, выберите оценку');
+                        return;
+                    }
+                    
+                    const reviewText = reviewTextInput.value.trim();
+                    if (!reviewText) {
+                        alert('Пожалуйста, напишите отзыв');
+                        return;
+                    }
+                    
+                    // Здесь можно добавить логику отправки отзыва
+                    console.log('Отзыв отправлен:', { rating: selectedRating, text: reviewText });
+                    
+                    // Закрываем модальное окно
+                    reviewModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    reviewTextInput.value = '';
+                    selectedRating = 0;
+                    updateReviewStars(0);
+                });
+            }
+        }
+        
+        // Инициализация карусели на странице приложения
+        function initAppCarousel() {
+            const appCarousel = document.getElementById('appCarousel');
+            if (!appCarousel) return;
+            
+            const images = appCarousel.querySelectorAll('.app-carousel-image');
+            const originalCount = 5; // Первые 5 оригинальные
+            
+            // Создаем структуру: [clone][originals][clone]
+            (function setupClones() {
+                const originals = Array.from(images).slice(0, originalCount);
+                // Добавляем клоны в начало в обратном порядке
+                for (let i = originals.length - 1; i >= 0; i--) {
+                    const c = originals[i].cloneNode(true);
+                    appCarousel.insertBefore(c, appCarousel.firstChild);
+                }
+                // Добавляем клоны в конец
+                originals.forEach(img => {
+                    const c = img.cloneNode(true);
+                    appCarousel.appendChild(c);
+                });
+            })();
+
+            function getAppCarouselMetrics() {
+                const img = appCarousel.querySelector('.app-carousel-image');
+                const style = getComputedStyle(appCarousel);
+                const gap = parseFloat(style.gap) || 12;
+                const imgW = img ? img.offsetWidth : 0;
+                return { imgW: imgW, gap: gap, step: imgW + gap };
+            }
+
+            function getAppCarouselScrollWidth() {
+                const m = getAppCarouselMetrics();
+                return m.step * originalCount;
+            }
+
+            // Начинаем с середины (начало оригинального набора)
+            window.requestAnimationFrame(() => {
+                const total = getAppCarouselScrollWidth();
+                appCarousel.style.scrollBehavior = 'auto';
+                appCarousel.scrollLeft = total;
+                appCarousel.style.scrollBehavior = 'smooth';
+            });
+
+            // Невидимая обертка: при достижении клона в конце или начале, перепрыгиваем обратно
+            function handleAppCarouselWrap() {
+                const total = getAppCarouselScrollWidth();
+                if (appCarousel.scrollLeft >= total * 2 - 1) {
+                    appCarousel.style.scrollBehavior = 'auto';
+                    appCarousel.scrollLeft = appCarousel.scrollLeft - total;
+                    appCarousel.style.scrollBehavior = 'smooth';
+                } else if (appCarousel.scrollLeft <= 0) {
+                    appCarousel.style.scrollBehavior = 'auto';
+                    appCarousel.scrollLeft = appCarousel.scrollLeft + total;
+                    appCarousel.style.scrollBehavior = 'smooth';
+                }
+            }
+
+            appCarousel.addEventListener('scroll', () => {
+                if (!appCarousel._ticking) {
+                    window.requestAnimationFrame(() => {
+                        handleAppCarouselWrap();
+                        appCarousel._ticking = false;
+                    });
+                    appCarousel._ticking = true;
+                }
+            });
+            
+            // Обработчики кликов для открытия изображений в модальном окне
+            setupAppCarouselModal();
+        }
+        
+        // Настройка модального окна для карусели приложения
+        function setupAppCarouselModal() {
+            const appCarousel = document.getElementById('appCarousel');
+            if (!appCarousel) return;
+            
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalNext = document.getElementById('modalNext');
+            const modalPrev = document.getElementById('modalPrev');
+            
+            if (!imageModal || !modalImage) return;
+            
+            let appCarouselImages = [];
+            let currentAppImageIndex = 0;
+            
+            // Получаем оригинальные изображения (исключая клоны)
+            function getAppOriginalImages() {
+                const allImages = appCarousel.querySelectorAll('.app-carousel-image');
+                // После клонирования структура: [5 clones][5 originals][5 clones]
+                // Оригиналы находятся в середине (индексы 5-9)
+                appCarouselImages = Array.from(allImages).slice(5, 10).map(img => img.src).filter(src => src);
+            }
+            
+            // Инициализация списка оригинальных изображений
+            setTimeout(() => {
+                getAppOriginalImages();
+            }, 100);
+            
+            // Открытие модального окна с конкретным изображением
+            function openAppImageModal(index) {
+                if (appCarouselImages.length === 0) return;
+                currentAppImageIndex = index;
+                modalImage.src = appCarouselImages[currentAppImageIndex];
+                imageModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Сохраняем контекст для навигации
+                window.currentAppCarouselImages = appCarouselImages;
+                window.currentAppImageIndex = currentAppImageIndex;
+            }
+            
+            // Показать следующее изображение
+            function showNextAppImage() {
+                if (appCarouselImages.length === 0) return;
+                currentAppImageIndex = (currentAppImageIndex + 1) % appCarouselImages.length;
+                modalImage.src = appCarouselImages[currentAppImageIndex];
+                window.currentAppImageIndex = currentAppImageIndex;
+            }
+            
+            // Показать предыдущее изображение
+            function showPrevAppImage() {
+                if (appCarouselImages.length === 0) return;
+                currentAppImageIndex = (currentAppImageIndex - 1 + appCarouselImages.length) % appCarouselImages.length;
+                modalImage.src = appCarouselImages[currentAppImageIndex];
+                window.currentAppImageIndex = currentAppImageIndex;
+            }
+            
+            // Обработчики кликов на изображения карусели
+            appCarousel.addEventListener('click', (e) => {
+                const img = e.target.closest('.app-carousel-image');
+                if (img) {
+                    // Находим индекс оригинального изображения
+                    const allImages = Array.from(appCarousel.querySelectorAll('.app-carousel-image'));
+                    const clickedIndex = allImages.indexOf(img);
+                    // После клонирования: [5 clones][5 originals][5 clones]
+                    // Оригиналы находятся на индексах 5-9
+                    let originalIndex;
+                    if (clickedIndex >= 5 && clickedIndex < 10) {
+                        originalIndex = clickedIndex - 5;
+                    } else if (clickedIndex < 5) {
+                        // Клик на клоне в начале, маппим на соответствующий оригинал
+                        originalIndex = clickedIndex;
+                    } else {
+                        // Клик на клоне в конце, маппим на соответствующий оригинал
+                        originalIndex = (clickedIndex - 10) % 5;
+                    }
+                    openAppImageModal(originalIndex);
+                }
+            });
+            
+            // Добавляем обработчики для навигации в модальном окне
+            if (modalNext) {
+                const originalNextHandler = modalNext.onclick;
+                modalNext.addEventListener('click', function appCarouselNextHandler(e) {
+                    if (window.currentAppCarouselImages && window.currentAppCarouselImages === appCarouselImages && imageModal.classList.contains('active')) {
+                        e.stopPropagation();
+                        showNextAppImage();
+                    }
+                });
+            }
+            
+            if (modalPrev) {
+                modalPrev.addEventListener('click', function appCarouselPrevHandler(e) {
+                    if (window.currentAppCarouselImages && window.currentAppCarouselImages === appCarouselImages && imageModal.classList.contains('active')) {
+                        e.stopPropagation();
+                        showPrevAppImage();
+                    }
+                });
+            }
         }
 
         // Navigate to home page
