@@ -687,6 +687,24 @@
         </div>
     </div>
 
+    <!-- Tutorial Modal -->
+    <div id="tutorialModal" class="tutorial-modal hidden">
+        <div class="tutorial-overlay"></div>
+        <div class="tutorial-content">
+            <div class="tutorial-step" id="tutorialStep">
+                <div class="tutorial-text">
+                    <h3 id="tutorialTitle">Добро пожаловать!</h3>
+                    <p id="tutorialDescription">Давайте познакомимся с основными функциями приложения</p>
+                </div>
+                <div class="tutorial-actions">
+                    <button id="tutorialNext" class="tutorial-btn tutorial-btn-primary">Далее</button>
+                    <button id="tutorialSkip" class="tutorial-btn tutorial-btn-secondary">Пропустить</button>
+                </div>
+            </div>
+        </div>
+        <div class="tutorial-highlight" id="tutorialHighlight"></div>
+    </div>
+
     <script>
         const carousel = document.getElementById('carousel');
         const prevBtn = document.querySelector('.carousel-control.prev');
@@ -3080,6 +3098,141 @@
         // Initialize AI Assistant
         const aiAssistant = new AIAssistant();
 
+        // ========== Tutorial System ==========
+        class Tutorial {
+            constructor() {
+                this.currentStep = 0;
+                this.modal = document.getElementById('tutorialModal');
+                this.title = document.getElementById('tutorialTitle');
+                this.description = document.getElementById('tutorialDescription');
+                this.nextBtn = document.getElementById('tutorialNext');
+                this.skipBtn = document.getElementById('tutorialSkip');
+                this.highlight = document.getElementById('tutorialHighlight');
+                
+                this.steps = [
+                    {
+                        title: 'Добро пожаловать!',
+                        description: 'Давайте познакомимся с основными функциями приложения',
+                        target: null,
+                        action: null
+                    },
+                    {
+                        title: 'Поиск приложений',
+                        description: 'Нажмите на поле поиска, чтобы найти нужное приложение',
+                        target: '.searchbar input',
+                        action: 'click'
+                    },
+                    {
+                        title: 'Категории приложений',
+                        description: 'Нажмите на любую категорию для просмотра приложений',
+                        target: '.category-btn:first-child',
+                        action: 'click'
+                    },
+                    {
+                        title: 'Приложения',
+                        description: 'Нажмите на любое приложение для подробной информации',
+                        target: '.feature-suggestion-item:first-child',
+                        action: 'click'
+                    },
+                    {
+                        title: 'AI-Помощник',
+                        description: 'Нажмите на кнопку AI-помощника для получения помощи',
+                        target: '#fixedAiButton',
+                        action: 'click'
+                    },
+                    {
+                        title: 'Профиль',
+                        description: 'Нажмите на иконку профиля для управления аккаунтом',
+                        target: '#profilePicLink',
+                        action: 'click'
+                    }
+                ];
+                
+                this.initEventListeners();
+            }
+            
+            initEventListeners() {
+                this.nextBtn?.addEventListener('click', () => this.nextStep());
+                this.skipBtn?.addEventListener('click', () => this.skipTutorial());
+            }
+            
+            start() {
+                this.currentStep = 0;
+                this.modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                this.showStep();
+            }
+            
+            showStep() {
+                const step = this.steps[this.currentStep];
+                this.title.textContent = step.title;
+                this.description.textContent = step.description;
+                
+                if (step.target) {
+                    this.highlightElement(step.target);
+                    this.waitForInteraction(step.target, step.action);
+                } else {
+                    this.hideHighlight();
+                }
+            }
+            
+            highlightElement(selector) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    this.highlight.style.display = 'block';
+                    this.highlight.style.left = (rect.left - 5) + 'px';
+                    this.highlight.style.top = (rect.top - 5) + 'px';
+                    this.highlight.style.width = (rect.width + 10) + 'px';
+                    this.highlight.style.height = (rect.height + 10) + 'px';
+                }
+            }
+            
+            hideHighlight() {
+                this.highlight.style.display = 'none';
+            }
+            
+            waitForInteraction(selector, action) {
+                const element = document.querySelector(selector);
+                if (element && action) {
+                    const handler = () => {
+                        element.removeEventListener(action, handler);
+                        setTimeout(() => this.nextStep(), 500);
+                    };
+                    element.addEventListener(action, handler);
+                }
+            }
+            
+            nextStep() {
+                this.currentStep++;
+                if (this.currentStep >= this.steps.length) {
+                    this.finish();
+                } else {
+                    this.showStep();
+                }
+            }
+            
+            skipTutorial() {
+                this.finish();
+            }
+            
+            finish() {
+                this.modal.classList.add('hidden');
+                document.body.style.overflow = '';
+                this.hideHighlight();
+                localStorage.setItem('tutorialCompleted', 'true');
+                alert('Добро пожаловать в StMaHack!');
+            }
+        }
+        
+        const tutorial = new Tutorial();
+        
+        function startTutorial() {
+            setTimeout(() => {
+                tutorial.start();
+            }, 500);
+        }
+
         // Initialize theme and accessibility mode on page load
         const darkThemeEnabled = localStorage.getItem('darkTheme') === 'true';
         const accessibilityEnabled = localStorage.getItem('accessibilityMode') === 'true';
@@ -3107,8 +3260,9 @@
         const registerEmail = document.getElementById('registerEmail');
         const registerPassword = document.getElementById('registerPassword');
 
-        // Show login modal on page load
-        if (loginModal) {
+        // Show login modal on page load only if user is not logged in
+        const userEmail = localStorage.getItem('userEmail');
+        if (!userEmail && loginModal) {
             loginModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -3195,6 +3349,7 @@
                 
                 // Save email to localStorage
                 localStorage.setItem('userEmail', email);
+                localStorage.setItem('isNewUser', 'true');
                 
                 // Log registration data to console
                 console.log('Регистрация:', { email, password });
@@ -3205,7 +3360,8 @@
                     document.body.style.overflow = '';
                 }
                 
-                alert('Аккаунт успешно создан!');
+                // Start tutorial for new users
+                startTutorial();
             });
         }
 
