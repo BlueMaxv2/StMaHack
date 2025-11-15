@@ -5,7 +5,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>StMaHack — Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <style>
+        .ai-message.user-message {
+            justify-content: flex-end !important;
+        }
+        .ai-message.ai-message {
+            justify-content: flex-start !important;
+        }
+        .ai-message.user-message .ai-message-bubble {
+            background: #007bff !important;
+            color: white !important;
+        }
+        .ai-message.ai-message .ai-message-bubble {
+            background: #f8f9fa !important;
+            border: 1px solid #dee2e6 !important;
+            color: #333 !important;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header" id="mainHeader">
@@ -50,6 +67,7 @@
             <nav class="burger-nav">
                 <a href="#" class="burger-nav-item">Профиль</a>
                 <a href="#" class="burger-nav-item">Настройки</a>
+                <a href="#" class="burger-nav-item" id="openAiAssistant">AI-Помощник</a>
                 <a href="#" class="burger-nav-item">Помощь</a>
             </nav>
         </div>
@@ -244,6 +262,11 @@
         <!-- End App Page Container -->
     </main>
 
+    <!-- Fixed AI Assistant Button -->
+    <button id="fixedAiButton" class="fixed-ai-button" aria-label="AI-Помощник">
+        🤖
+    </button>
+
     <footer class="site-footer">
     </footer>
 
@@ -253,6 +276,32 @@
         <button class="modal-nav modal-prev" id="modalPrev" aria-label="Предыдущее">‹</button>
         <button class="modal-nav modal-next" id="modalNext" aria-label="Следующее">›</button>
         <img class="modal-image" id="modalImage" src="" alt="">
+    </div>
+
+    <!-- AI Assistant Modal -->
+    <div id="aiAssistantModal" class="ai-assistant-modal hidden">
+        <div class="ai-assistant-modal-content">
+            <div class="ai-assistant-header">
+                <h1>AI-Помощник Гоша</h1>
+                <button id="closeAiAssistant" class="ai-close-btn" aria-label="Закрыть">×</button>
+            </div>
+            <div class="ai-chat-container" id="aiChatContainer">
+                <div class="ai-message">
+                    <div class="ai-message-bubble">
+                        Привет! Я ваш AI-помощник, меня зовут Гоша!
+                        Чем могу помочь?
+                    </div>
+                </div>
+            </div>
+            <div id="aiTyping" class="ai-typing hidden">AI печатает...</div>
+            <div class="ai-input-container">
+                <div class="ai-input-group">
+                    <input type="text" id="aiMessageInput" placeholder="Введите сообщение...">
+                    <button id="aiSendButton">Отправить</button>
+                </div>
+            </div>
+            <div class="ai-status" id="aiStatus">Статус: Проверка...</div>
+        </div>
     </div>
 
     <!-- Review Modal -->
@@ -1581,6 +1630,9 @@
                 if (!burgerMenu.classList.contains('hidden')) {
                     closeMenu();
                 }
+                if (!document.getElementById('aiAssistantModal').classList.contains('hidden')) {
+                    aiAssistant.close();
+                }
             }
         });
 
@@ -1597,6 +1649,142 @@
 
         // Handle browser back/forward buttons
         window.addEventListener('hashchange', handleRoute);
+
+        // ========== AI Assistant System ==========
+        class AIAssistant {
+            constructor() {
+                this.history = [];
+                this.apiBase = window.location.origin;
+                this.modal = document.getElementById('aiAssistantModal');
+                this.chatContainer = document.getElementById('aiChatContainer');
+                this.messageInput = document.getElementById('aiMessageInput');
+                this.sendButton = document.getElementById('aiSendButton');
+                this.typing = document.getElementById('aiTyping');
+                this.status = document.getElementById('aiStatus');
+                this.closeButton = document.getElementById('closeAiAssistant');
+                this.openButton = document.getElementById('openAiAssistant');
+                this.fixedButton = document.getElementById('fixedAiButton');
+
+                this.initEventListeners();
+                this.checkHealth();
+            }
+
+            initEventListeners() {
+                this.openButton?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.open();
+                });
+
+                this.fixedButton?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.open();
+                });
+
+                this.closeButton?.addEventListener('click', () => this.close());
+                this.sendButton?.addEventListener('click', () => this.send());
+                
+                this.messageInput?.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.send();
+                });
+
+                this.modal?.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.close();
+                });
+
+                // Prevent modal from closing when clicking inside content
+                this.modal?.querySelector('.ai-assistant-modal-content')?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            async checkHealth() {
+                if (window.location.protocol === 'file:') {
+                    this.status.textContent = 'Откройте http://localhost:8000';
+                    return;
+                }
+                try {
+                    const response = await fetch(`${this.apiBase}/api/health`);
+                    if (!response.ok) throw new Error('Server error');
+                    const data = await response.json();
+                    this.status.textContent = data.status === 'healthy' ? 'Статус: Готов' : 'Статус: Ошибка';
+                } catch (error) {
+                    console.error('Health check failed:', error);
+                    this.status.textContent = 'Статус: Сервер не запущен';
+                }
+            }
+
+            open() {
+                this.modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                this.messageInput?.focus();
+                // Close burger menu if open
+                document.getElementById('burgerMenu')?.classList.add('hidden');
+            }
+
+            close() {
+                this.modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            async send() {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                this.messageInput.value = '';
+                this.sendButton.disabled = true;
+                this.addMessage(message, 'user');
+                this.typing.classList.remove('hidden');
+                this.scroll();
+
+                try {
+                    const response = await fetch(`${this.apiBase}/api/chat`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: message,
+                            history: this.history
+                        })
+                    });
+
+                    const data = await response.json();
+                    this.typing.classList.add('hidden');
+                    this.addMessage(data.response, 'ai');
+                    this.history.push({ user: message, ai: data.response });
+                    this.status.textContent = 'Статус: Готов';
+
+                } catch (error) {
+                    this.typing.classList.add('hidden');
+                    this.addMessage('Ошибка соединения', 'ai');
+                    this.status.textContent = 'Статус: Ошибка';
+                } finally {
+                    this.sendButton.disabled = false;
+                }
+            }
+
+            addMessage(text, sender) {
+                console.log('Adding message:', text, 'sender:', sender);
+                
+                const messageHTML = sender === 'user' 
+                    ? `<div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                         <div style="background: #007bff; color: white; max-width: 80%; padding: 10px 15px; border-radius: 15px; word-wrap: break-word;">${text}</div>
+                       </div>`
+                    : `<div style="display: flex; justify-content: flex-start; margin-bottom: 10px;">
+                         <div style="background: #f8f9fa; border: 1px solid #dee2e6; color: #333; max-width: 80%; padding: 10px 15px; border-radius: 15px; word-wrap: break-word;">${text}</div>
+                       </div>`;
+                
+                this.chatContainer.insertAdjacentHTML('beforeend', messageHTML);
+                this.scroll();
+            }
+
+            scroll() {
+                setTimeout(() => {
+                    this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+                }, 100);
+            }
+        }
+
+        // Initialize AI Assistant
+        const aiAssistant = new AIAssistant();
 
         // Initial route handling - ensure headers are in correct state
         // mainHeader should be visible by default, appHeader should be hidden
