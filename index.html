@@ -65,6 +65,15 @@
         <a href="#"><img src="images/options.svg"></a>
     </header>
 
+    <!-- My Reviews Page Header -->
+    <header class="profile-header hidden" id="myReviewsHeader">
+        <button id="myReviewsBackButton" class="app-header-btn app-back-btn" aria-label="Назад">
+            <img src="images/maki_arrow.svg" alt="Назад">
+        </button>
+        <h2 class="profile-header-title">Мои отзывы</h2>
+        <div class="app-header-right"></div>
+    </header>
+
     <!-- Search Modal -->
     <div id="searchModal" class="search-modal hidden">
         <div class="search-modal-content">
@@ -241,10 +250,10 @@
         <div class="burger-menu-content">
             <button id="closeMenuButton" class="burger-close-btn" aria-label="Закрыть">×</button>
             <nav class="burger-nav">
-                <a href="#" class="burger-nav-item">Профиль</a>
-                <a href="#" class="burger-nav-item">Настройки</a>
+                <a href="#" class="burger-nav-item" id="burgerProfile">Профиль</a>
+                <a href="#" class="burger-nav-item" id="burgerSettings">Настройки</a>
                 <a href="#" class="burger-nav-item" id="openAiAssistant">AI-Помощник</a>
-                <a href="#" class="burger-nav-item">Помощь</a>
+                <a href="#" class="burger-nav-item" id="burgerHelp">Помощь</a>
             </nav>
         </div>
     </div>
@@ -533,6 +542,14 @@
             </div>
         </div>
         <!-- End Search Results Page Container -->
+
+        <!-- My Reviews Page Container -->
+        <div id="myReviewsPage" class="page-container hidden">
+            <div id="myReviewsPageContent" class="my-reviews-page-content">
+                <!-- Content will be dynamically rendered here -->
+            </div>
+        </div>
+        <!-- End My Reviews Page Container -->
     </main>
 
     <!-- Fixed AI Assistant Button -->
@@ -1061,6 +1078,8 @@
 
         // Render app page
         function renderAppPage(appId) {
+            // Сохраняем ID приложения для сохранения отзывов
+            window.currentAppId = appId;
             // Очищаем контент страницы приложения
             appPageContent.innerHTML = `
                 <div class="app-info-block">
@@ -1400,10 +1419,12 @@
             appPage.classList.remove('hidden');
             profilePage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
+            myReviewsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.remove('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.add('hidden');
+            myReviewsHeader.classList.add('hidden');
             
             // Hide back button, show AI button
             const fixedBackButton = document.getElementById('fixedBackButton');
@@ -1440,8 +1461,8 @@
             
             profilePageContent.innerHTML = `
                 <div class="profile-email">${userEmail}</div>
-                <div class="profile-menu">
-                    <button class="profile-menu-item">
+                <div class="profile-menu" id="profileMenu">
+                    <button class="profile-menu-item" id="myReviewsButton">
                         <svg class="profile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#333"/>
                         </svg>
@@ -1483,16 +1504,122 @@
             homePage.classList.add('hidden');
             appPage.classList.add('hidden');
             profilePage.classList.remove('hidden');
+            searchResultsPage.classList.add('hidden');
+            myReviewsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.remove('hidden');
+            searchResultsHeader.classList.add('hidden');
+            myReviewsHeader.classList.add('hidden');
             document.title = 'StMaHack — Профиль';
             window.scrollTo(0, 0);
+            
+            // Добавляем обработчик для кнопки "Мои отзывы" после создания
+            setTimeout(() => {
+                const myReviewsBtn = document.getElementById('myReviewsButton');
+                if (myReviewsBtn) {
+                    // Удаляем старый обработчик, если есть
+                    const newBtn = myReviewsBtn.cloneNode(true);
+                    myReviewsBtn.parentNode.replaceChild(newBtn, myReviewsBtn);
+                    // Добавляем новый обработчик
+                    newBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        navigateToMyReviews();
+                    });
+                }
+            }, 100);
         }
 
         // Navigate to profile
         function navigateToProfile() {
             renderProfilePage();
+        }
+
+        // Render my reviews page
+        function renderMyReviewsPage() {
+            const userEmail = localStorage.getItem('userEmail');
+            if (!userEmail) {
+                alert('Пожалуйста, войдите в систему или зарегистрируйтесь');
+                navigateToHome();
+                return;
+            }
+            
+            const reviews = JSON.parse(localStorage.getItem('userReviews') || '[]');
+            
+            if (reviews.length === 0) {
+                myReviewsPageContent.innerHTML = `
+                    <div class="my-reviews-empty">
+                        <p>У вас пока нет отзывов</p>
+                    </div>
+                `;
+            } else {
+                myReviewsPageContent.innerHTML = `
+                    <div class="my-reviews-list">
+                        ${reviews.map(review => `
+                            <div class="my-review-item" data-review-id="${review.id}">
+                                <div class="my-review-header">
+                                    <div class="my-review-app-info">
+                                        <span class="my-review-app-name">${review.appName}</span>
+                                        <span class="my-review-date">${review.date}</span>
+                                    </div>
+                                    <div class="my-review-rating">
+                                        ${Array.from({ length: 5 }, (_, i) => 
+                                            `<span class="my-review-star ${i < review.rating ? 'filled' : ''}">★</span>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                                <div class="my-review-text">${review.text}</div>
+                                <div class="my-review-reactions">
+                                    <div class="my-review-reaction-item">
+                                        <span class="my-review-reaction-icon">👍</span>
+                                        <span class="my-review-reaction-count">${review.likes || 0}</span>
+                                    </div>
+                                    <div class="my-review-reaction-item">
+                                        <span class="my-review-reaction-icon">👎</span>
+                                        <span class="my-review-reaction-count">${review.dislikes || 0}</span>
+                                    </div>
+                                </div>
+                                <button class="my-review-delete-btn" data-review-id="${review.id}">Удалить</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                // Добавляем обработчики для кнопок удаления
+                const deleteButtons = myReviewsPageContent.querySelectorAll('.my-review-delete-btn');
+                deleteButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const reviewId = parseInt(btn.getAttribute('data-review-id'));
+                        if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+                            // Удаляем отзыв из localStorage
+                            const reviews = JSON.parse(localStorage.getItem('userReviews') || '[]');
+                            const filteredReviews = reviews.filter(r => r.id !== reviewId);
+                            localStorage.setItem('userReviews', JSON.stringify(filteredReviews));
+                            // Перерисовываем страницу
+                            renderMyReviewsPage();
+                        }
+                    });
+                });
+            }
+            
+            homePage.classList.add('hidden');
+            appPage.classList.add('hidden');
+            profilePage.classList.add('hidden');
+            searchResultsPage.classList.add('hidden');
+            myReviewsPage.classList.remove('hidden');
+            mainHeader.classList.add('hidden');
+            appHeader.classList.add('hidden');
+            profileHeader.classList.add('hidden');
+            searchResultsHeader.classList.add('hidden');
+            myReviewsHeader.classList.remove('hidden');
+            document.title = 'StMaHack — Мои отзывы';
+            window.scrollTo(0, 0);
+        }
+
+        // Navigate to my reviews
+        function navigateToMyReviews() {
+            renderMyReviewsPage();
         }
 
         // Render search results page
@@ -1922,13 +2049,23 @@
             }
             
             // Отправка отзыва
-            if (submitReviewButton) {
+            if (submitReviewButton && !submitReviewButton.hasAttribute('data-handler-attached')) {
+                // Помечаем, что обработчик уже добавлен
+                submitReviewButton.setAttribute('data-handler-attached', 'true');
+                
                 submitReviewButton.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     
+                    // Защита от множественных вызовов
+                    if (submitReviewButton.disabled) {
+                        return;
+                    }
+                    submitReviewButton.disabled = true;
+                    
                     if (selectedRating === 0) {
                         alert('Пожалуйста, выберите оценку');
+                        submitReviewButton.disabled = false;
                         return;
                     }
                     
@@ -1936,16 +2073,42 @@
                     const currentReviewTextInput = document.getElementById('reviewTextInput');
                     if (!currentReviewTextInput) {
                         console.error('Поле ввода отзыва не найдено');
+                        submitReviewButton.disabled = false;
                         return;
                     }
                     
-                    const reviewText = currentReviewTextInput.value.trim();
-                    if (!reviewText || reviewText.length === 0) {
+                    // Получаем значение ДО любых других операций
+                    const reviewText = currentReviewTextInput.value || '';
+                    const trimmedText = reviewText.trim();
+                    
+                    // Проверяем, что текст не пустой после удаления пробелов
+                    if (trimmedText.length === 0) {
                         alert('Пожалуйста, напишите отзыв');
+                        submitReviewButton.disabled = false;
                         return;
                     }
                     
-                    console.log('Отзыв отправлен:', { rating: selectedRating, text: reviewText });
+                    console.log('Отзыв отправлен:', { rating: selectedRating, text: trimmedText });
+                    
+                    // Сохраняем отзыв в localStorage
+                    // Отзывы хранятся в localStorage под ключом 'userReviews' в формате JSON массива объектов
+                    // Каждый объект содержит: id, rating, text, date, appId, appName, likes, dislikes
+                    const userEmail = localStorage.getItem('userEmail');
+                    if (userEmail) {
+                        const reviews = JSON.parse(localStorage.getItem('userReviews') || '[]');
+                        const newReview = {
+                            id: Date.now(),
+                            rating: selectedRating,
+                            text: trimmedText,
+                            date: new Date().toLocaleDateString('ru-RU'),
+                            appId: window.currentAppId || '1',
+                            appName: 'Приложение', // Можно расширить для сохранения названия приложения
+                            likes: 0, // Количество лайков
+                            dislikes: 0 // Количество дизлайков
+                        };
+                        reviews.push(newReview);
+                        localStorage.setItem('userReviews', JSON.stringify(reviews));
+                    }
                     
                     // Закрываем модальное окно
                     if (reviewModal) {
@@ -1959,6 +2122,9 @@
                     }
                     selectedRating = 0;
                     updateReviewStars(0);
+                    
+                    // Восстанавливаем кнопку
+                    submitReviewButton.disabled = false;
                     
                     setTimeout(() => alert('Отзыв успешно отправлен!'), 100);
                 });
@@ -2144,10 +2310,12 @@
             appPage.classList.add('hidden');
             profilePage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
+            myReviewsPage.classList.add('hidden');
             mainHeader.classList.remove('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.add('hidden');
+            myReviewsHeader.classList.add('hidden');
             
             // Hide back button, show AI button
             const fixedBackButton = document.getElementById('fixedBackButton');
@@ -2224,6 +2392,13 @@
         if (profileBackButton) {
             profileBackButton.addEventListener('click', () => {
                 navigateToHome();
+            });
+        }
+        
+        // My reviews back button handler
+        if (myReviewsBackButton) {
+            myReviewsBackButton.addEventListener('click', () => {
+                navigateToProfile();
             });
         }
 
@@ -2510,6 +2685,30 @@
         appMenuButton.addEventListener('click', openMenu);
         closeMenuButton.addEventListener('click', closeMenu);
         burgerMenu.querySelector('.burger-menu-overlay').addEventListener('click', closeMenu);
+        
+        // Обработчики для кнопок бургер меню
+        const burgerProfile = document.getElementById('burgerProfile');
+        const burgerSettings = document.getElementById('burgerSettings');
+        const burgerHelp = document.getElementById('burgerHelp');
+        
+        if (burgerProfile) {
+            burgerProfile.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMenu();
+                navigateToProfile();
+            });
+        }
+        
+        if (burgerSettings) {
+            burgerSettings.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMenu();
+                // TODO: Добавить страницу настроек
+                alert('Страница настроек в разработке');
+            });
+        }
+        
+        // Помощь - не назначаем обработчик, как просил пользователь
 
         // Close modals on Escape key
         document.addEventListener('keydown', (e) => {
