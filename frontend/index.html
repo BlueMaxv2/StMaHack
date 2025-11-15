@@ -1,18 +1,207 @@
-<!DOCTYPE html>
-<html>
+<!-- /C:/Users/krive/OneDrive/Рабочий стол/Hack/StMaHack_front/index.html -->
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Простой видеохостинг</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>StMaHack — Home</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <header class="site-header">
+        <div class ="searchbar" id="flex"><img src="images/loupe.svg"><input type="text" placeholder="Что вы хотите найти?"></div>
+        <a href="#"><img src="images/profile_pic.svg"></a>
+        <a href="#"><img src="images/options.svg"></a>
+    </header>
 
-<!-- Первая кнопка -->
-<button id="clickButton">click</button>
-<!-- Вторая кнопка для скрытия/показа первой -->
-<button id="toggleButton">Hide</button>
+    <main id="main" class="site-main" role="main">
+        <div class="carousel-wrap">
+            <button class="carousel-control prev" aria-label="Предыдущие">‹</button>
+            <section class="categories-carousel" id="carousel">
+            <button class="category-btn">
+                <img src="images/category-1.svg" alt="">
+                <span>Категория 1</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-2.svg" alt="">
+                <span>Категория 2</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-3.svg" alt="">
+                <span>Категория 3</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-4.svg" alt="">
+                <span>Категория 4</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-5.svg" alt="">
+                <span>Категория 5</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-6.svg" alt="">
+                <span>Категория 6</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-7.svg" alt="">
+                <span>Категория 7</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-8.svg" alt="">
+                <span>Категория 8</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-9.svg" alt="">
+                <span>Категория 9</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-10.svg" alt="">
+                <span>Категория 10</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-1.svg" alt="">
+                <span>Категория 1</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-2.svg" alt="">
+                <span>Категория 2</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-3.svg" alt="">
+                <span>Категория 3</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-4.svg" alt="">
+                <span>Категория 4</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-5.svg" alt="">
+                <span>Категория 5</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-6.svg" alt="">
+                <span>Категория 6</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-7.svg" alt="">
+                <span>Категория 7</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-8.svg" alt="">
+                <span>Категория 8</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-9.svg" alt="">
+                <span>Категория 9</span>
+            </button>
+            <button class="category-btn">
+                <img src="images/category-10.svg" alt="">
+                <span>Категория 10</span>
+            </button>
+        </section>
+        
+        <!-- Feature block -->
+        <section class="feature-block">
+            <div class="feature-header">
+                <h3 class="feature-title">Основной заголовок</h3>
+                <a class="feature-meta" href="#"><span class="meta-text">Мелкий текст</span><img src="images/meta-icon.svg" class="meta-icon" alt=""></a>
+            </div>
 
-<script src="script.js"></script>
+            <div class="feature-items">
+                <a class="feature-item" href="#">
+                    <img class="feature-item-icon" src="images/ficon1.svg" alt="">
+                    <div class="feature-item-content">
+                        <div class="fi-line">Первая строка текста</div>
+                        <div class="fi-line">Вторая строка текста</div>
+                        <div class="fi-line"><img class="fi-small" src="images/fsmall1.svg" alt=""><span>Маленький текст</span></div>
+                    </div>
+                </a>
 
+                <a class="feature-item" href="#">
+                    <img class="feature-item-icon" src="images/ficon2.svg" alt="">
+                    <div class="feature-item-content">
+                        <div class="fi-line">Первая строка 2</div>
+                        <div class="fi-line">Вторая строка 2</div>
+                        <div class="fi-line"><img class="fi-small" src="images/fsmall2.svg" alt=""><span>Маленький текст 2</span></div>
+                    </div>
+                </a>
 
+                <a class="feature-item" href="#">
+                    <img class="feature-item-icon" src="images/ficon3.svg" alt="">
+                    <div class="feature-item-content">
+                        <div class="fi-line">Первая строка 3</div>
+                        <div class="fi-line">Вторая строка 3</div>
+                        <div class="fi-line"><img class="fi-small" src="images/fsmall3.svg" alt=""><span>Маленький текст 3</span></div>
+                    </div>
+                </a>
+            </div>
+        </section>
+            <button class="carousel-control next" aria-label="Следующие">›</button>
+        </div>
+    </main>
+
+        <!-- Info block -->
+        <section class="info-block" aria-labelledby="info-title">
+            <h2 id="info-title" class="info-title">Заголовок информационного блока</h2>
+            <div class="info-columns">
+                <a class="info-col" href="#">
+                    <img class="info-icon-big" src="images/icon-large-1.svg" alt="">
+                    <p class="info-text">Краткое описание 1</p>
+                    <div class="info-row"><img class="info-icon-small" src="images/icon-small-1.svg" alt=""><span>Маленький текст 1</span></div>
+                    <p class="info-bottom">Дополнительная строка 1</p>
+                </a>
+                <a class="info-col" href="#">
+                    <img class="info-icon-big" src="images/icon-large-2.svg" alt="">
+                    <p class="info-text">Краткое описание 2</p>
+                    <div class="info-row"><img class="info-icon-small" src="images/icon-small-2.svg" alt=""><span>Маленький текст 2</span></div>
+                    <p class="info-bottom">Дополнительная строка 2</p>
+                </a>
+                <a class="info-col" href="#">
+                    <img class="info-icon-big" src="images/icon-large-3.svg" alt="">
+                    <p class="info-text">Краткое описание 3</p>
+                    <div class="info-row"><img class="info-icon-small" src="images/icon-small-3.svg" alt=""><span>Маленький текст 3</span></div>
+                    <p class="info-bottom">Дополнительная строка 3</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- New content block -->
+        <section class="content-block">
+            <div class="content-header">
+                <div class="content-icon-col">
+                    <img class="content-icon" src="images/content-icon.svg" alt="">
+                </div>
+                <div class="content-text-col">
+                    <div class="content-text-line">Первая строка текста</div>
+                    <div class="content-text-line">Вторая строка текста</div>
+                    <div class="content-text-line">
+                        <img class="content-small-icon" src="images/content-small-icon.svg" alt="">
+                        <span>Маленький текст</span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-carousel-wrap">
+                <div class="content-carousel" id="contentCarousel">
+                    <img src="images/yandex_test1.webp" alt="" class="carousel-image">
+                    <img src="images/yandex_test2.webp" alt="" class="carousel-image">
+                    <img src="images/yandex_test3.webp" alt="" class="carousel-image">
+                    <img src="images/content-carousel-4.svg" alt="" class="carousel-image">
+                    <img src="images/content-carousel-5.svg" alt="" class="carousel-image">
+                </div>
+            </div>
+        </section>
+
+    <footer class="site-footer">
+    </footer>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+        <button class="modal-nav modal-prev" id="modalPrev" aria-label="Предыдущее">‹</button>
+        <button class="modal-nav modal-next" id="modalNext" aria-label="Следующее">›</button>
+        <img class="modal-image" id="modalImage" src="" alt="">
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

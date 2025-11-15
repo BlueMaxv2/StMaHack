@@ -16,23 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ПИШЕМ КОД ТУТ
 
-
-# Модель данных для POST
-class SubmitData(BaseModel):
-    action: str
-    timestamp: str = None
-    message: Optional[str] = None  # ✅ работает в Python 3.9
-
-# ✅ Этот маршрут должен быть POST
-@app.post("/api/submit")
-def submit(data: SubmitData):
-    print("Получено:", data)
-    return {"status": "ok", "received": data}
-
-@app.post("/api/click")
-def click(data: SubmitData):
-    return {"status": "ok", "received": data}
 
 
 # ОТКРЫТИЕ ПЕРВОЙ СТРАНИЦЫ
