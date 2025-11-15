@@ -417,6 +417,58 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div id="loginModal" class="auth-modal">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h3 class="auth-modal-title">Войти в систему с помощью</h3>
+            </div>
+            <div class="auth-modal-body">
+                <div class="auth-social-icons">
+                    <button class="auth-social-icon" aria-label="Google">
+                        <img src="images/google-icon.svg" alt="Google" onerror="this.style.display='none'; this.parentElement.textContent='G';">
+                    </button>
+                    <button class="auth-social-icon" aria-label="Facebook">
+                        <img src="images/facebook-icon.svg" alt="Facebook" onerror="this.style.display='none'; this.parentElement.textContent='F';">
+                    </button>
+                    <button class="auth-social-icon" aria-label="Apple">
+                        <img src="images/apple-icon.svg" alt="Apple" onerror="this.style.display='none'; this.parentElement.textContent='A';">
+                    </button>
+                </div>
+                <div class="auth-form">
+                    <input type="text" id="loginUsername" class="auth-input" placeholder="Логин" required>
+                    <input type="password" id="loginPassword" class="auth-input" placeholder="Пароль" required>
+                    <button id="loginSubmitButton" class="auth-submit-btn">Авторизоваться</button>
+                    <div class="auth-switch">
+                        <span>Хотите </span>
+                        <a href="#" id="switchToRegister" class="auth-switch-link">создать учётную запись</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="auth-modal hidden">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h3 class="auth-modal-title">Регистрация</h3>
+                <button id="closeRegisterButton" class="auth-close-btn" aria-label="Закрыть">×</button>
+            </div>
+            <div class="auth-modal-body">
+                <div class="auth-form">
+                    <input type="email" id="registerEmail" class="auth-input" placeholder="E-mail" required>
+                    <input type="password" id="registerPassword" class="auth-input" placeholder="Пароль" required>
+                    <button id="registerSubmitButton" class="auth-submit-btn">Создать аккаунт</button>
+                    <div class="auth-switch">
+                        <span>Уже есть аккаунт? </span>
+                        <a href="#" id="switchToLogin" class="auth-switch-link">Войти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const carousel = document.getElementById('carousel');
         const prevBtn = document.querySelector('.carousel-control.prev');
@@ -1943,6 +1995,128 @@
         appHeader.classList.add('hidden');
         
         handleRoute();
+
+        // Auth Modals Management
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const closeRegisterButton = document.getElementById('closeRegisterButton');
+        const loginSubmitButton = document.getElementById('loginSubmitButton');
+        const registerSubmitButton = document.getElementById('registerSubmitButton');
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const registerEmail = document.getElementById('registerEmail');
+        const registerPassword = document.getElementById('registerPassword');
+
+        // Show login modal on page load
+        if (loginModal) {
+            loginModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Switch to register modal
+        if (switchToRegister) {
+            switchToRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (loginModal) loginModal.classList.add('hidden');
+                if (registerModal) registerModal.classList.remove('hidden');
+            });
+        }
+
+        // Switch to login modal
+        if (switchToLogin) {
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (registerModal) registerModal.classList.add('hidden');
+                if (loginModal) loginModal.classList.remove('hidden');
+            });
+        }
+
+        // Close register modal
+        if (closeRegisterButton) {
+            closeRegisterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (registerModal) registerModal.classList.add('hidden');
+                if (loginModal) loginModal.classList.remove('hidden');
+            });
+        }
+
+        // Login form submission
+        if (loginSubmitButton) {
+            loginSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const username = loginUsername ? loginUsername.value.trim() : '';
+                const password = loginPassword ? loginPassword.value.trim() : '';
+                
+                if (!username || !password) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+                
+                console.log('Вход:', { username, password });
+                
+                // Close login modal after successful login
+                if (loginModal) {
+                    loginModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+                
+                alert('Вход выполнен успешно!');
+            });
+        }
+
+        // Register form submission
+        if (registerSubmitButton) {
+            registerSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const email = registerEmail ? registerEmail.value.trim() : '';
+                const password = registerPassword ? registerPassword.value.trim() : '';
+                
+                if (!email || !password) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+                
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Пожалуйста, введите корректный e-mail');
+                    return;
+                }
+                
+                // Log registration data to console
+                console.log('Регистрация:', { email, password });
+                
+                // Close register modal after successful registration
+                if (registerModal) {
+                    registerModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+                
+                alert('Аккаунт успешно создан!');
+            });
+        }
+
+        // Close modals when clicking outside
+        if (loginModal) {
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    // Don't close on initial load, but allow closing after interaction
+                    // loginModal.classList.add('hidden');
+                    // document.body.style.overflow = '';
+                }
+            });
+        }
+
+        if (registerModal) {
+            registerModal.addEventListener('click', (e) => {
+                if (e.target === registerModal) {
+                    registerModal.classList.add('hidden');
+                    if (loginModal) loginModal.classList.remove('hidden');
+                }
+            });
+        }
     </script>
 </body>
 </html>
