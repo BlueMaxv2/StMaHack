@@ -3500,6 +3500,32 @@ body.accessibility-mode .auth-modal-content {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Адаптивное позиционирование для узких экранов */
+@media (max-width: 500px) {
+    .tutorial-content {
+        position: fixed;
+        bottom: 20px;
+        top: auto;
+        left: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
+        max-width: none;
+        margin: 0;
+        padding: 1.5rem;
+        transition: bottom 0.3s ease;
+    }
+    
+    .tutorial-modal {
+        align-items: flex-end;
+        padding-bottom: 20px;
+    }
+    
+    /* Поднимаем плашку когда подсвечиваем AI-помощника */
+    .tutorial-content.ai-step {
+        bottom: 100px;
+    }
+}
+
 .tutorial-step {
     text-align: center;
 }
@@ -3554,13 +3580,38 @@ body.accessibility-mode .auth-modal-content {
 }
 
 .tutorial-highlight {
-    position: absolute;
+    position: fixed;
     border: 3px solid #0077FF;
     border-radius: 8px;
     background-color: rgba(0, 119, 255, 0.1);
     pointer-events: none;
-    z-index: 2999;
+    z-index: 2999; /* Ниже модального окна обучения */
     transition: all 0.3s ease;
+    display: none;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.5);
+}
+
+/* Улучшенная подсветка для категорий */
+.tutorial-highlight.category-highlight {
+    border-width: 4px;
+    background-color: rgba(0, 119, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 119, 255, 0.7), inset 0 0 20px rgba(0, 119, 255, 0.3);
+    animation: pulse-highlight 2s infinite;
+}
+
+@keyframes pulse-highlight {
+    0% {
+        box-shadow: 0 0 30px rgba(0, 119, 255, 0.7), inset 0 0 20px rgba(0, 119, 255, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 119, 255, 0.9), inset 0 0 30px rgba(0, 119, 255, 0.5);
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(0, 119, 255, 0.7), inset 0 0 20px rgba(0, 119, 255, 0.3);
+        transform: scale(1);
+    }
 }
 
 /* My Reviews Page */

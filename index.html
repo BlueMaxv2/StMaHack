@@ -3125,14 +3125,15 @@
                     {
                         title: 'Категории приложений',
                         description: 'Нажмите на любую категорию для просмотра приложений',
-                        target: '.category-btn:first-child',
+                        target: '#carousel .category-btn:nth-child(11)',
                         action: 'click'
                     },
                     {
                         title: 'Приложения',
                         description: 'Нажмите на любое приложение для подробной информации',
                         target: '.feature-suggestion-item:first-child',
-                        action: 'click'
+                        action: 'click',
+                        position: 'top'
                     },
                     {
                         title: 'AI-Помощник',
@@ -3168,6 +3169,14 @@
                 this.title.textContent = step.title;
                 this.description.textContent = step.description;
                 
+                // Поднимаем плашку для AI-помощника
+                const tutorialContent = document.querySelector('.tutorial-content');
+                if (step.target === '#fixedAiButton') {
+                    tutorialContent?.classList.add('ai-step');
+                } else {
+                    tutorialContent?.classList.remove('ai-step');
+                }
+                
                 if (step.target) {
                     this.highlightElement(step.target);
                     this.waitForInteraction(step.target, step.action);
@@ -3181,15 +3190,33 @@
                 if (element) {
                     const rect = element.getBoundingClientRect();
                     this.highlight.style.display = 'block';
-                    this.highlight.style.left = (rect.left - 5) + 'px';
-                    this.highlight.style.top = (rect.top - 5) + 'px';
-                    this.highlight.style.width = (rect.width + 10) + 'px';
-                    this.highlight.style.height = (rect.height + 10) + 'px';
+                    
+                    // Добавляем специальный класс для категорий
+                    if (selector.includes('.category-btn')) {
+                        this.highlight.classList.add('category-highlight');
+                    } else {
+                        this.highlight.classList.remove('category-highlight');
+                    }
+                    
+                    // Увеличиваем отступы для лучшей видимости
+                    const padding = selector.includes('.category-btn') ? 8 : 5;
+                    this.highlight.style.left = (rect.left - padding) + 'px';
+                    this.highlight.style.top = (rect.top - padding) + 'px';
+                    this.highlight.style.width = (rect.width + padding * 2) + 'px';
+                    this.highlight.style.height = (rect.height + padding * 2) + 'px';
+                    
+                    // Прокручиваем к элементу если он не виден
+                    element.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center', 
+                        inline: 'center' 
+                    });
                 }
             }
             
             hideHighlight() {
                 this.highlight.style.display = 'none';
+                this.highlight.classList.remove('category-highlight');
             }
             
             waitForInteraction(selector, action) {
