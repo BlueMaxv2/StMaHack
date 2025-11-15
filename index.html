@@ -6,29 +6,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>StMaHack — Home</title>
     <link rel="stylesheet" href="styles.css?v=2" />
-    <style>
-        .ai-message.user-message {
-            justify-content: flex-end !important;
-        }
-        .ai-message.ai-message {
-            justify-content: flex-start !important;
-        }
-        .ai-message.user-message .ai-message-bubble {
-            background: #007bff !important;
-            color: white !important;
-        }
-        .ai-message.ai-message .ai-message-bubble {
-            background: #f8f9fa !important;
-            border: 1px solid #dee2e6 !important;
-            color: #333 !important;
-        }
-    </style>
+
 </head>
 <body>
     <header class="site-header" id="mainHeader">
         <div class ="searchbar" id="flex"><img src="images/loupe.svg"><input type="text" placeholder="Что вы хотите найти?" readonly></div>
         <a href="#" id="profilePicLink"><img src="images/profile_pic.svg"></a>
-        <a href="#"><img src="images/options.svg"></a>
+        <a href="#" id="headerSettingsLink"><img src="images/options.svg"></a>
     </header>
 
     <!-- App Page Header -->
@@ -62,7 +46,7 @@
             <input type="text" id="searchResultsInput" placeholder="Что вы хотите найти?" readonly>
         </div>
         <a href="#" id="searchResultsProfilePicLink"><img src="images/profile_pic.svg"></a>
-        <a href="#"><img src="images/options.svg"></a>
+        <a href="#" id="searchResultsSettingsLink"><img src="images/options.svg"></a>
     </header>
 
     <!-- My Reviews Page Header -->
@@ -71,6 +55,15 @@
             <img src="images/maki_arrow.svg" alt="Назад">
         </button>
         <h2 class="profile-header-title">Мои отзывы</h2>
+        <div class="app-header-right"></div>
+    </header>
+
+    <!-- Settings Page Header -->
+    <header class="profile-header hidden" id="settingsHeader">
+        <button id="settingsBackButton" class="app-header-btn app-back-btn" aria-label="Назад">
+            <img src="images/maki_arrow.svg" alt="Назад">
+        </button>
+        <h2 class="profile-header-title">Настройки</h2>
         <div class="app-header-right"></div>
     </header>
 
@@ -550,6 +543,14 @@
             </div>
         </div>
         <!-- End My Reviews Page Container -->
+
+        <!-- Settings Page Container -->
+        <div id="settingsPage" class="page-container hidden">
+            <div id="settingsPageContent" class="settings-page-content">
+                <!-- Content will be dynamically rendered here -->
+            </div>
+        </div>
+        <!-- End Settings Page Container -->
     </main>
 
     <!-- Fixed AI Assistant Button -->
@@ -579,7 +580,7 @@
                 <button id="closeAiAssistant" class="ai-close-btn" aria-label="Закрыть">×</button>
             </div>
             <div class="ai-chat-container" id="aiChatContainer">
-                <div class="ai-message">
+                <div class="ai-message ai-message">
                     <div class="ai-message-bubble">
                         Привет! Я ваш AI-помощник, меня зовут Гоша!
                         Чем могу помочь?
@@ -1026,6 +1027,12 @@
         const profilePageContent = document.getElementById('profilePageContent');
         const searchResultsPage = document.getElementById('searchResultsPage');
         const searchResultsPageContent = document.getElementById('searchResultsPageContent');
+        const myReviewsPage = document.getElementById('myReviewsPage');
+        const myReviewsPageContent = document.getElementById('myReviewsPageContent');
+        const myReviewsHeader = document.getElementById('myReviewsHeader');
+        const settingsPage = document.getElementById('settingsPage');
+        const settingsPageContent = document.getElementById('settingsPageContent');
+        const settingsHeader = document.getElementById('settingsHeader');
         const mainHeader = document.getElementById('mainHeader');
         const appHeader = document.getElementById('appHeader');
         const profileHeader = document.getElementById('profileHeader');
@@ -1034,6 +1041,7 @@
         const searchResultsProfilePicLink = document.getElementById('searchResultsProfilePicLink');
         const appBackButton = document.getElementById('appBackButton');
         const profileBackButton = document.getElementById('profileBackButton');
+        const settingsBackButton = document.getElementById('settingsBackButton');
         const profilePicLink = document.getElementById('profilePicLink');
 
         // App data structure - можно расширить по необходимости
@@ -1420,11 +1428,13 @@
             profilePage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             myReviewsPage.classList.add('hidden');
+            settingsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.remove('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.add('hidden');
             myReviewsHeader.classList.add('hidden');
+            settingsHeader.classList.add('hidden');
             
             // Hide back button, show AI button
             const fixedBackButton = document.getElementById('fixedBackButton');
@@ -1506,11 +1516,13 @@
             profilePage.classList.remove('hidden');
             searchResultsPage.classList.add('hidden');
             myReviewsPage.classList.add('hidden');
+            settingsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.remove('hidden');
             searchResultsHeader.classList.add('hidden');
             myReviewsHeader.classList.add('hidden');
+            settingsHeader.classList.add('hidden');
             document.title = 'StMaHack — Профиль';
             window.scrollTo(0, 0);
             
@@ -1608,11 +1620,13 @@
             profilePage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             myReviewsPage.classList.remove('hidden');
+            settingsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.add('hidden');
             myReviewsHeader.classList.remove('hidden');
+            settingsHeader.classList.add('hidden');
             document.title = 'StMaHack — Мои отзывы';
             window.scrollTo(0, 0);
         }
@@ -1620,6 +1634,138 @@
         // Navigate to my reviews
         function navigateToMyReviews() {
             renderMyReviewsPage();
+        }
+
+        // Render settings page
+        function renderSettingsPage() {
+            settingsPageContent.innerHTML = `
+                <div class="settings-icon-container">
+                    <svg class="settings-gear-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="#0077ff"/>
+                    </svg>
+                </div>
+                <div class="settings-menu">
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 7h14v10H5V7z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">Настройка обновлений</span>
+                    </button>
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">Безопасность</span>
+                    </button>
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">Детский режим</span>
+                    </button>
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">Помощь</span>
+                    </button>
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">О RuStore</span>
+                    </button>
+                    <button class="settings-menu-item">
+                        <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#333"/>
+                        </svg>
+                        <span class="settings-menu-text">Свяжитесь с нами</span>
+                    </button>
+                </div>
+                <div class="settings-toggles">
+                    <div class="settings-toggle-item">
+                        <span class="settings-toggle-label">Темная тема</span>
+                        <label class="settings-toggle-switch">
+                            <input type="checkbox" id="darkThemeToggle">
+                            <span class="settings-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-toggle-item">
+                        <span class="settings-toggle-label">Версия для слабовидящих</span>
+                        <label class="settings-toggle-switch">
+                            <input type="checkbox" id="accessibilityToggle">
+                            <span class="settings-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            `;
+            
+            homePage.classList.add('hidden');
+            appPage.classList.add('hidden');
+            profilePage.classList.add('hidden');
+            searchResultsPage.classList.add('hidden');
+            myReviewsPage.classList.add('hidden');
+            settingsPage.classList.remove('hidden');
+            mainHeader.classList.add('hidden');
+            appHeader.classList.add('hidden');
+            profileHeader.classList.add('hidden');
+            searchResultsHeader.classList.add('hidden');
+            myReviewsHeader.classList.add('hidden');
+            settingsHeader.classList.remove('hidden');
+            document.title = 'StMaHack — Настройки';
+            window.scrollTo(0, 0);
+            
+            // Загружаем сохраненные настройки
+            const darkThemeEnabled = localStorage.getItem('darkTheme') === 'true';
+            const accessibilityEnabled = localStorage.getItem('accessibilityMode') === 'true';
+            
+            const darkThemeToggle = document.getElementById('darkThemeToggle');
+            const accessibilityToggle = document.getElementById('accessibilityToggle');
+            
+            if (darkThemeToggle) {
+                darkThemeToggle.checked = darkThemeEnabled;
+                darkThemeToggle.addEventListener('change', (e) => {
+                    const enabled = e.target.checked;
+                    localStorage.setItem('darkTheme', enabled);
+                    applyDarkTheme(enabled);
+                });
+            }
+            
+            if (accessibilityToggle) {
+                accessibilityToggle.checked = accessibilityEnabled;
+                accessibilityToggle.addEventListener('change', (e) => {
+                    const enabled = e.target.checked;
+                    localStorage.setItem('accessibilityMode', enabled);
+                    applyAccessibilityMode(enabled);
+                });
+            }
+            
+            // Применяем сохраненные настройки
+            applyDarkTheme(darkThemeEnabled);
+            applyAccessibilityMode(accessibilityEnabled);
+        }
+
+        // Apply dark theme
+        function applyDarkTheme(enabled) {
+            if (enabled) {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+
+        // Apply accessibility mode
+        function applyAccessibilityMode(enabled) {
+            if (enabled) {
+                document.body.classList.add('accessibility-mode');
+            } else {
+                document.body.classList.remove('accessibility-mode');
+            }
+        }
+
+        // Navigate to settings
+        function navigateToSettings() {
+            renderSettingsPage();
         }
 
         // Render search results page
@@ -1715,16 +1861,26 @@
             appPage.classList.add('hidden');
             profilePage.classList.add('hidden');
             searchResultsPage.classList.remove('hidden');
+            myReviewsPage.classList.add('hidden');
+            settingsPage.classList.add('hidden');
             mainHeader.classList.add('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.remove('hidden');
+            myReviewsHeader.classList.add('hidden');
+            settingsHeader.classList.add('hidden');
             
             // Show back button, hide AI button
             const fixedBackButton = document.getElementById('fixedBackButton');
             const fixedAiButton = document.getElementById('fixedAiButton');
             if (fixedBackButton) fixedBackButton.classList.remove('hidden');
             if (fixedAiButton) fixedAiButton.classList.add('hidden');
+            
+            // Скрываем кнопку загрузки на странице результатов поиска
+            const downloadBtn = document.getElementById('appDownloadBtn');
+            if (downloadBtn) {
+                downloadBtn.style.display = 'none';
+            }
             
             document.title = 'StMaHack — Результаты поиска';
             window.scrollTo(0, 0);
@@ -2311,11 +2467,13 @@
             profilePage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             myReviewsPage.classList.add('hidden');
+            settingsPage.classList.add('hidden');
             mainHeader.classList.remove('hidden');
             appHeader.classList.add('hidden');
             profileHeader.classList.add('hidden');
             searchResultsHeader.classList.add('hidden');
             myReviewsHeader.classList.add('hidden');
+            settingsHeader.classList.add('hidden');
             
             // Hide back button, show AI button
             const fixedBackButton = document.getElementById('fixedBackButton');
@@ -2371,6 +2529,23 @@
                 navigateToProfile();
             });
         }
+
+        // Settings navigation from header
+        const headerSettingsLink = document.getElementById('headerSettingsLink');
+        if (headerSettingsLink) {
+            headerSettingsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToSettings();
+            });
+        }
+
+        const searchResultsSettingsLink = document.getElementById('searchResultsSettingsLink');
+        if (searchResultsSettingsLink) {
+            searchResultsSettingsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToSettings();
+            });
+        }
         
         // Search results input click handler
         if (searchResultsInput) {
@@ -2402,6 +2577,13 @@
             });
         }
 
+        // Settings back button handler
+        if (settingsBackButton) {
+            settingsBackButton.addEventListener('click', () => {
+                navigateToHome();
+            });
+        }
+
         // Search modal handlers
         const appSearchButton = document.getElementById('appSearchButton');
         const searchModal = document.getElementById('searchModal');
@@ -2429,6 +2611,12 @@
                 appHeaderVisible: !appHeader.classList.contains('hidden'),
                 profileHeaderVisible: !profileHeader.classList.contains('hidden')
             };
+            
+            // Скрываем кнопку загрузки при открытии поиска
+            const downloadBtn = document.getElementById('appDownloadBtn');
+            if (downloadBtn) {
+                downloadBtn.style.display = 'none';
+            }
             
             searchModal.classList.remove('hidden');
             searchInput.focus();
@@ -2652,6 +2840,11 @@
                     const categoryBtn = e.target.closest('.category-btn');
                     if (categoryBtn) {
                         const categoryName = categoryBtn.querySelector('span')?.textContent || 'Категория';
+                        // Скрываем кнопку загрузки при переходе по категории
+                        const downloadBtn = document.getElementById('appDownloadBtn');
+                        if (downloadBtn) {
+                            downloadBtn.style.display = 'none';
+                        }
                         closeSearch();
                         window.location.hash = `#/search/${encodeURIComponent(categoryName)}`;
                     }
@@ -2703,8 +2896,7 @@
             burgerSettings.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeMenu();
-                // TODO: Добавить страницу настроек
-                alert('Страница настроек в разработке');
+                navigateToSettings();
             });
         }
         
@@ -2853,15 +3045,28 @@
             addMessage(text, sender) {
                 console.log('Adding message:', text, 'sender:', sender);
                 
-                const messageHTML = sender === 'user' 
-                    ? `<div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-                         <div style="background: #007bff; color: white; max-width: 80%; padding: 10px 15px; border-radius: 15px; word-wrap: break-word;">${text}</div>
-                       </div>`
-                    : `<div style="display: flex; justify-content: flex-start; margin-bottom: 10px;">
-                         <div style="background: #f8f9fa; border: 1px solid #dee2e6; color: #333; max-width: 80%; padding: 10px 15px; border-radius: 15px; word-wrap: break-word;">${text}</div>
-                       </div>`;
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'ai-message';
                 
-                this.chatContainer.insertAdjacentHTML('beforeend', messageHTML);
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.className = 'ai-message-bubble';
+                bubbleDiv.textContent = text;
+                
+                if (sender === 'user') {
+                    messageDiv.classList.add('user-message');
+                    messageDiv.style.justifyContent = 'flex-end';
+                    bubbleDiv.style.background = '#007bff';
+                    bubbleDiv.style.color = 'white';
+                } else {
+                    messageDiv.classList.add('ai-message');
+                    messageDiv.style.justifyContent = 'flex-start';
+                    bubbleDiv.style.background = '#f8f9fa';
+                    bubbleDiv.style.color = '#333';
+                    bubbleDiv.style.border = '1px solid #dee2e6';
+                }
+                
+                messageDiv.appendChild(bubbleDiv);
+                this.chatContainer.appendChild(messageDiv);
                 this.scroll();
             }
 
@@ -2874,6 +3079,12 @@
 
         // Initialize AI Assistant
         const aiAssistant = new AIAssistant();
+
+        // Initialize theme and accessibility mode on page load
+        const darkThemeEnabled = localStorage.getItem('darkTheme') === 'true';
+        const accessibilityEnabled = localStorage.getItem('accessibilityMode') === 'true';
+        applyDarkTheme(darkThemeEnabled);
+        applyAccessibilityMode(accessibilityEnabled);
 
         // Initial route handling - ensure headers are in correct state
         // mainHeader should be visible by default, appHeader and profileHeader should be hidden

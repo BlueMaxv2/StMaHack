@@ -263,6 +263,7 @@ a {
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1rem;
+    background-color: transparent;
 }
 
 .search-category-icon {
@@ -1035,6 +1036,9 @@ a {
     margin-left: auto;
     margin-right: 0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50%;
 }
 
 /* App Carousel */
@@ -1457,15 +1461,18 @@ a {
     word-wrap: break-word;
 }
 
+/* Сообщения пользователя - синий фон */
 .ai-message.user-message .ai-message-bubble {
-    background: #28a745;
-    color: white;
+    background: #007bff !important;
+    color: white !important;
+    border: none !important;
 }
 
+/* Сообщения AI - светло-серый фон */
 .ai-message.ai-message .ai-message-bubble {
-    background: white;
-    border: 1px solid #ddd;
-    color: #333;
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333 !important;
 }
 
 .ai-input-container {
@@ -1533,7 +1540,7 @@ a {
 /* Fixed AI Assistant Button */
 .fixed-ai-button {
     position: fixed;
-    bottom: 100px;
+    bottom: 20px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -2299,6 +2306,1085 @@ a {
 
 .profile-menu-text {
     flex: 1;
+}
+
+/* Settings Page */
+.settings-page-content {
+    padding: 2rem 1rem;
+    padding-top: calc(2rem + 60px); /* Отступ для фиксированного header */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settings-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.settings-gear-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.settings-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.settings-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.settings-menu-item:hover {
+    background-color: #c9c9c9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-menu-item:active {
+    background-color: #b9b9b9;
+    transform: translateY(0);
+}
+
+.settings-menu-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.settings-menu-text {
+    flex: 1;
+}
+
+.settings-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.settings-toggle-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.settings-toggle-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    flex: 1;
+}
+
+.settings-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.settings-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.settings-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.settings-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.settings-toggle-switch input:checked + .settings-toggle-slider {
+    background-color: #0077ff;
+}
+
+.settings-toggle-switch input:checked + .settings-toggle-slider:before {
+    transform: translateX(24px);
+}
+
+.settings-toggle-switch input:focus + .settings-toggle-slider {
+    box-shadow: 0 0 1px #0077ff;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .site-header,
+body.dark-theme .app-header,
+body.dark-theme .profile-header {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .searchbar {
+    border-color: #0077ff;
+    background-color: #2d2d2d;
+}
+
+body.dark-theme .searchbar input {
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .searchbar input::placeholder {
+    color: #999;
+}
+
+body.dark-theme .profile-email,
+body.dark-theme .profile-menu-item,
+body.dark-theme .settings-menu-item,
+body.dark-theme .settings-toggle-item {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .profile-menu-item:hover,
+body.dark-theme .settings-menu-item:hover {
+    background-color: #3d3d3d;
+}
+
+body.dark-theme .profile-menu-item:active,
+body.dark-theme .settings-menu-item:active {
+    background-color: #4d4d4d;
+}
+
+body.dark-theme .profile-menu-icon path,
+body.dark-theme .settings-menu-icon path {
+    fill: #e0e0e0;
+}
+
+body.dark-theme .category-btn,
+body.dark-theme .app-info-block,
+body.dark-theme .app-carousel-wrap {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-modal,
+body.dark-theme .search-modal-content {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .search-modal-header {
+    background-color: #2d2d2d;
+    border-bottom-color: #3d3d3d;
+}
+
+body.dark-theme .search-modal-input {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #3d3d3d;
+}
+
+body.dark-theme .ai-assistant-modal {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-theme .ai-assistant-modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .ai-message.ai-message .ai-message-bubble {
+    background-color: #2d2d2d !important;
+    border-color: #3d3d3d !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-theme .ai-message.user-message .ai-message-bubble {
+    background: #0077ff !important;
+    color: white !important;
+    border: none !important;
+}
+
+body.dark-theme .ai-input-container {
+    background-color: #2d2d2d;
+    border-top-color: #3d3d3d;
+}
+
+body.dark-theme .ai-input-container input {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #4d4d4d;
+}
+
+body.dark-theme .ai-input-container input::placeholder {
+    color: #999;
+}
+
+body.dark-theme .review-modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .review-modal-header {
+    border-bottom-color: #3d3d3d;
+}
+
+body.dark-theme .review-text-field textarea {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #4d4d4d;
+}
+
+body.dark-theme .category-btn {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .category-btn:hover {
+    background-color: #3d3d3d;
+}
+
+body.dark-theme .category-btn span {
+    color: #e0e0e0;
+}
+
+body.dark-theme .carousel-wrap {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .info-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .info-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-page-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-info-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-info-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-info-text-large,
+body.dark-theme .app-info-text-small {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-description-container {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-description-text {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-description-toggle {
+    color: #0077ff;
+}
+
+body.dark-theme .app-reviews-section {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-reviews-header {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-item {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-header {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-author {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-date {
+    color: #999;
+}
+
+body.dark-theme .app-review-text {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-like-btn,
+body.dark-theme .app-review-dislike-btn {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-review-like-btn.active {
+    color: #0077ff;
+}
+
+body.dark-theme .app-review-dislike-btn.active {
+    color: #ff4444;
+}
+
+body.dark-theme .app-show-all-reviews-btn {
+    border-color: #0077ff;
+    color: #0077ff;
+}
+
+body.dark-theme .app-show-all-reviews-btn:hover {
+    background-color: rgba(0, 119, 255, 0.2);
+}
+
+body.dark-theme .app-action-btn.secondary {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-action-btn.secondary:hover {
+    background-color: #4d4d4d;
+}
+
+body.dark-theme .search-results-page-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-result-app-item {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-result-app-name {
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-result-app-category {
+    color: #999;
+}
+
+body.dark-theme .search-result-app-rating-value {
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-reviews-page-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-reviews-empty {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-reviews-list {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .my-review-item {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-review-app-name {
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-review-date {
+    color: #999;
+}
+
+body.dark-theme .my-review-text {
+    color: #e0e0e0;
+}
+
+body.dark-theme .my-review-delete-btn {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #4d4d4d;
+}
+
+body.dark-theme .my-review-delete-btn:hover {
+    background-color: #4d4d4d;
+}
+
+body.dark-theme .burger-menu {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-theme .burger-menu-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .burger-nav-item {
+    color: #e0e0e0;
+}
+
+body.dark-theme .burger-nav-item:hover {
+    background-color: #3d3d3d;
+}
+
+body.dark-theme .burger-close-btn {
+    color: #e0e0e0;
+}
+
+body.dark-theme .auth-modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .auth-input {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #4d4d4d;
+}
+
+body.dark-theme .auth-input::placeholder {
+    color: #999;
+}
+
+body.dark-theme .auth-switch {
+    color: #e0e0e0;
+}
+
+body.dark-theme .review-modal-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .review-rating-label,
+body.dark-theme .review-text-label {
+    color: #e0e0e0;
+}
+
+body.dark-theme .review-star-select {
+    color: #666;
+}
+
+body.dark-theme .review-star-select.selected {
+    color: #ffd700;
+}
+
+body.dark-theme .review-submit-btn {
+    background-color: #0077ff;
+    color: #ffffff;
+}
+
+body.dark-theme .review-submit-btn:hover {
+    background-color: #0066cc;
+}
+
+body.dark-theme .review-close-btn {
+    color: #e0e0e0;
+}
+
+body.dark-theme .ai-assistant-header {
+    background: #0077ff;
+    color: white;
+}
+
+body.dark-theme .ai-status {
+    color: #e0e0e0;
+    background-color: #2d2d2d;
+}
+
+body.dark-theme .ai-typing {
+    color: #999;
+}
+
+body.dark-theme .ai-input-container button {
+    background-color: #0077ff;
+    color: #ffffff;
+}
+
+body.dark-theme .ai-input-container button:hover {
+    background-color: #0066cc;
+}
+
+body.dark-theme .settings-icon-container {
+    color: #e0e0e0;
+}
+
+body.dark-theme .settings-toggle-label {
+    color: #e0e0e0;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6 {
+    color: #e0e0e0;
+}
+
+body.dark-theme .profile-header-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme a {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-developer-link {
+    color: #0077ff !important;
+}
+
+body.dark-theme .back-button {
+    color: #0077ff;
+}
+
+body.dark-theme .back-button:hover {
+    background-color: #3d3d3d;
+}
+
+body.dark-theme .app-reviews-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-reviews-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-info-text-small {
+    color: #999;
+}
+
+body.dark-theme .search-category-section {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-category-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .search-category-header {
+    color: #e0e0e0;
+    background-color: transparent;
+}
+
+body.dark-theme .search-category-section {
+    background-color: transparent;
+}
+
+body.dark-theme .image-modal {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+body.dark-theme .modal-close,
+body.dark-theme .modal-nav {
+    color: #e0e0e0;
+    background-color: rgba(45, 45, 45, 0.8);
+}
+
+body.dark-theme .modal-close:hover,
+body.dark-theme .modal-nav:hover {
+    background-color: rgba(45, 45, 45, 1);
+}
+
+body.dark-theme .settings-page-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .profile-page-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .page-container {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .app-info-text-right {
+    color: #999;
+}
+
+body.dark-theme .categories-carousel {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .feature-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .feature-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .feature-meta {
+    color: #999;
+}
+
+body.dark-theme .feature-carousel-wrap {
+    background-color: #2d2d2d;
+}
+
+body.dark-theme .feature-suggestion-item {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .feature-suggestion-item:hover {
+    background-color: #4d4d4d;
+}
+
+body.dark-theme .feature-suggestion-name {
+    color: #e0e0e0;
+}
+
+body.dark-theme .feature-suggestion-category,
+body.dark-theme .feature-suggestion-rating,
+body.dark-theme .feature-suggestion-star {
+    color: #999;
+}
+
+body.dark-theme .content-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .content-text-line {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-developer-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-developer-label {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-suggestions-block {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-suggestions-title {
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-suggestion-item {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-suggestion-item:hover {
+    background-color: #4d4d4d;
+}
+
+body.dark-theme .app-suggestion-name {
+    color: #ffffff;
+}
+
+body.dark-theme .app-suggestion-category,
+body.dark-theme .app-suggestion-rating,
+body.dark-theme .app-suggestion-star,
+body.dark-theme .app-suggestion-rating-value {
+    color: #ffffff;
+}
+
+body.dark-theme .ai-assistant-modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+body.dark-theme .ai-chat-container {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .app-carousel-wrap {
+    background-color: #2d2d2d;
+}
+
+/* Accessibility Mode */
+body.accessibility-mode {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+body.accessibility-mode * {
+    box-sizing: border-box;
+}
+
+body.accessibility-mode html {
+    font-size: 112.5%; /* 18px / 16px = 1.125 */
+}
+
+body.accessibility-mode body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body.accessibility-mode .site-header,
+body.accessibility-mode .app-header,
+body.accessibility-mode .profile-header {
+    padding: 1.5rem 1rem;
+    font-size: 20px;
+    gap: 5%;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+body.accessibility-mode .site-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+body.accessibility-mode .site-header .searchbar {
+    padding: 1rem;
+    font-size: 18px;
+    max-width: 100%;
+    box-sizing: border-box;
+    width: calc(100% - 120px);
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+body.accessibility-mode .site-header a {
+    flex-shrink: 0;
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+body.accessibility-mode .searchbar input {
+    font-size: 18px;
+    padding: 1rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.accessibility-mode .searchbar input::placeholder {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body.accessibility-mode .category-btn {
+    padding: 1.5rem;
+    font-size: 18px;
+}
+
+body.accessibility-mode .profile-menu-item,
+body.accessibility-mode .settings-menu-item {
+    padding: 1.5rem 2rem;
+    font-size: 18px;
+    min-height: 60px;
+}
+
+body.accessibility-mode .settings-toggle-item {
+    padding: 1.5rem 2rem;
+    font-size: 18px;
+    min-height: 60px;
+}
+
+body.accessibility-mode .settings-toggle-label {
+    font-size: 18px;
+}
+
+body.accessibility-mode .app-header-btn,
+body.accessibility-mode .search-back-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+body.accessibility-mode .fixed-ai-button {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.accessibility-mode button,
+body.accessibility-mode a {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+body.accessibility-mode .container,
+body.accessibility-mode .page-container,
+body.accessibility-mode .app-page-content,
+body.accessibility-mode .profile-page-content,
+body.accessibility-mode .settings-page-content,
+body.accessibility-mode .search-results-page-content,
+body.accessibility-mode .my-reviews-page-content {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+body.accessibility-mode .info-block,
+body.accessibility-mode .feature-block,
+body.accessibility-mode .content-block {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    max-width: calc(100% - 1rem);
+    box-sizing: border-box;
+    padding: 1.5rem;
+    font-size: 18px;
+}
+
+body.accessibility-mode .info-title {
+    font-size: 22px;
+    margin-bottom: 1rem;
+}
+
+body.accessibility-mode .info-text,
+body.accessibility-mode .info-bottom {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+body.accessibility-mode .content-header {
+    margin-bottom: 1.5rem;
+}
+
+body.accessibility-mode .content-text-line {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+}
+
+body.accessibility-mode .content-icon {
+    width: 80px;
+    height: 80px;
+}
+
+body.accessibility-mode .info-icon-big {
+    width: 64px;
+    height: 64px;
+}
+
+body.accessibility-mode .category-btn span {
+    font-size: 15px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+body.accessibility-mode .categories-carousel {
+    padding: 1.2rem;
+    gap: 1rem;
+}
+
+body.accessibility-mode .ai-assistant-modal-content {
+    font-size: 18px;
+    max-width: 95vw;
+    width: 95vw;
+}
+
+body.accessibility-mode .ai-message-bubble {
+    font-size: 18px;
+    padding: 1rem 1.5rem;
+    line-height: 1.8;
+    max-width: 85%;
+}
+
+body.accessibility-mode .ai-input-container input {
+    font-size: 18px;
+    padding: 1rem;
+    min-height: 48px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+body.accessibility-mode .ai-input-container button {
+    font-size: 18px;
+    padding: 1rem 1.5rem;
+    min-height: 48px;
+    flex-shrink: 0;
+}
+
+body.accessibility-mode .app-info-block,
+body.accessibility-mode .app-carousel-wrap,
+body.accessibility-mode .app-reviews-block,
+body.accessibility-mode .app-developer-block,
+body.accessibility-mode .app-suggestions-block {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+body.accessibility-mode .app-info-title,
+body.accessibility-mode .app-info-text-large,
+body.accessibility-mode .app-info-text-small {
+    font-size: 20px;
+}
+
+body.accessibility-mode .app-description-text {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+body.accessibility-mode .app-reviews-title {
+    font-size: 22px;
+}
+
+body.accessibility-mode .app-review-item {
+    padding: 1.5rem;
+    font-size: 18px;
+    margin-bottom: 1.5rem;
+}
+
+body.accessibility-mode .app-review-author,
+body.accessibility-mode .app-review-text {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+body.accessibility-mode .app-review-date {
+    font-size: 16px;
+}
+
+body.accessibility-mode .app-review-like-btn,
+body.accessibility-mode .app-review-dislike-btn {
+    padding: 0.75rem 1rem;
+    font-size: 18px;
+    min-height: 44px;
+}
+
+body.accessibility-mode .app-write-review-btn,
+body.accessibility-mode .app-show-all-reviews-btn {
+    padding: 1rem 1.5rem;
+    font-size: 18px;
+    min-height: 48px;
+}
+
+body.accessibility-mode .app-download-btn {
+    padding: 1.25rem;
+    font-size: 20px;
+    min-height: 56px;
+}
+
+body.accessibility-mode .my-review-item {
+    padding: 1.5rem;
+    font-size: 18px;
+    margin-bottom: 1.5rem;
+}
+
+body.accessibility-mode .my-review-app-name {
+    font-size: 20px;
+}
+
+body.accessibility-mode .my-review-text {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+body.accessibility-mode .my-review-date {
+    font-size: 16px;
+}
+
+body.accessibility-mode .my-review-delete-btn {
+    padding: 1rem 1.5rem;
+    font-size: 18px;
+    min-height: 48px;
+    margin-top: 1rem;
+}
+
+body.accessibility-mode .my-reviews-empty {
+    padding: 2rem;
+    font-size: 20px;
+}
+
+body.accessibility-mode .search-result-app-item {
+    padding: 1.5rem;
+    font-size: 18px;
+    margin-bottom: 1rem;
+}
+
+body.accessibility-mode .search-result-app-name {
+    font-size: 20px;
+}
+
+body.accessibility-mode .search-result-app-category {
+    font-size: 18px;
+}
+
+body.accessibility-mode .search-result-app-rating-value {
+    font-size: 18px;
+}
+
+body.accessibility-mode .search-results-apps {
+    padding: 1rem 0;
+}
+
+body.accessibility-mode .search-modal-content {
+    max-width: 100vw;
+    width: 100vw;
+}
+
+body.accessibility-mode .review-modal-content,
+body.accessibility-mode .auth-modal-content {
+    max-width: 95vw;
+    width: 95vw;
 }
 
 /* Search Results Page */
