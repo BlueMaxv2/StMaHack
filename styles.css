@@ -10,10 +10,16 @@ body {
     line-height: 1.5;
     color: #333;
     background-color: #F1ECEF;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 html {
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 /* Typography */
@@ -51,6 +57,11 @@ a {
 .page-container {
     width: 100%;
 }
+
+/* Отступ для главной страницы, чтобы контент не перекрывался fixed header */
+#homePage {
+    padding-top: calc(60px + 1rem); /* Высота header + отступ */
+}
 .site-header, .site-footer {
     padding: 1rem 0;
     display: flex;
@@ -61,9 +72,13 @@ a {
 }
 
 .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .site-header.hidden {
@@ -117,17 +132,19 @@ a {
 
 /* App Page Header */
 .app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 1rem;
     background-color: #ffffff;
     border-radius: 0 0 15px 15px;
-    z-index: 100;
+    z-index: 1000 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .app-header.hidden {
@@ -239,9 +256,35 @@ a {
 }
 
 .search-results {
-    padding: 1rem;
-    overflow-y: auto;
     flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.search-modal-footer {
+    padding: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.search-submit-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #0077FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-submit-btn:hover {
+    background-color: #0066cc;
+}
+
+.search-submit-btn:active {
+    background-color: #0055aa;
 }
 
 /* Burger Menu */
@@ -524,49 +567,109 @@ a {
     height: 16px;
 }
 
-.feature-items {
+/* Feature Carousel */
+.feature-carousel-wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-carousel {
     display: flex;
-    gap: 12px;
-    justify-content: space-between;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 1rem;
 }
 
-.feature-item {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    flex: 1 1 0;
-    min-width: 0;
+.feature-carousel::-webkit-scrollbar {
+    display: none;
 }
 
-.feature-item-icon {
-    width: 32px;
-    height: 32px;
-    flex: 0 0 32px;
+.feature-carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.feature-item-content {
+.feature-column {
+    min-width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
+    flex-shrink: 0;
+    scroll-snap-align: center;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
-.fi-line {
-    font-size: 13px;
+.feature-suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    background-color: #F1ECEF;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+}
+
+.feature-suggestion-item:hover {
+    background-color: #e8e0e4;
+}
+
+.feature-suggestion-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.feature-suggestion-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.feature-suggestion-name {
+    font-size: 14px;
+    font-weight: 500;
     color: #333;
-    margin-bottom: 6px;
 }
 
-.fi-line .fi-small {
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    margin-right: 6px;
+.feature-suggestion-category {
+    font-size: 12px;
+    color: #636E72;
 }
 
-.fi-line img.fi-small { width: 16px; height: 16px; margin-right: 6px; }
+.feature-suggestion-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 12px;
+    color: #636E72;
+}
 
-@media (max-width: 600px) {
-    .feature-items { flex-direction: column; }
-    .feature-item { width: 100%; }
+.feature-suggestion-star {
+    font-size: 12px;
+    color: #636E72;
+}
+
+@media (min-width: 600px) {
+    .feature-column {
+        min-width: calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (min-width: 900px) {
+    .feature-column {
+        min-width: calc(33.333% - 1.33rem);
+        max-width: calc(33.333% - 1.33rem);
+    }
 }
 
 /* Mobile layout (393px width) */
@@ -838,6 +941,7 @@ a {
 .app-page-content {
     padding: 2rem 1rem;
     padding-top: calc(2rem + 60px); /* Отступ для фиксированного header */
+    padding-bottom: 80px; /* Отступ для fixed кнопки загрузки */
     max-width: 800px;
     margin: 0 auto;
 }
@@ -1844,4 +1948,35 @@ a {
         width: 32px;
         height: 32px;
     }
+}
+
+/* App Download Button */
+.app-download-btn {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    padding: 1rem;
+    background-color: #0077FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 15px 15px 0 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 999 !important;
+    transition: background-color 0.2s;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 !important;
+}
+
+/* Скрываем кнопку загрузки на главной странице - управляется через JavaScript */
+
+.app-download-btn:hover {
+    background-color: #0066cc;
+}
+
+.app-download-btn:active {
+    background-color: #0055aa;
 }

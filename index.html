@@ -56,6 +56,9 @@
             <div id="searchResults" class="search-results">
                 <!-- Search results will appear here -->
             </div>
+            <div class="search-modal-footer">
+                <button id="searchSubmitButton" class="search-submit-btn">Поиск</button>
+            </div>
         </div>
     </div>
 
@@ -168,33 +171,114 @@
                 <a class="feature-meta" href="#"><span class="meta-text">Мелкий текст</span><img src="images/meta-icon.svg" class="meta-icon" alt=""></a>
             </div>
 
-            <div class="feature-items">
-                <a class="feature-item" href="#/app/1" data-app-id="1">
-                    <img class="feature-item-icon" src="images/ficon1.svg" alt="">
-                    <div class="feature-item-content">
-                        <div class="fi-line">Первая строка текста</div>
-                        <div class="fi-line">Вторая строка текста</div>
-                        <div class="fi-line"><img class="fi-small" src="images/fsmall1.svg" alt=""><span>Маленький текст</span></div>
+            <div class="feature-carousel-wrap">
+                <div class="feature-carousel" id="featureCarousel">
+                    <div class="feature-column">
+                        <a class="feature-suggestion-item" href="#/app/1" data-app-id="1">
+                            <img class="feature-suggestion-icon" src="images/ficon1.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 1</div>
+                                <div class="feature-suggestion-category">Описание 1</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.5</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/2" data-app-id="2">
+                            <img class="feature-suggestion-icon" src="images/ficon2.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 2</div>
+                                <div class="feature-suggestion-category">Описание 2</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.2</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/3" data-app-id="3">
+                            <img class="feature-suggestion-icon" src="images/ficon3.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 3</div>
+                                <div class="feature-suggestion-category">Описание 3</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.8</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-
-                <a class="feature-item" href="#/app/2" data-app-id="2">
-                    <img class="feature-item-icon" src="images/ficon2.svg" alt="">
-                    <div class="feature-item-content">
-                        <div class="fi-line">Первая строка 2</div>
-                        <div class="fi-line">Вторая строка 2</div>
-                        <div class="fi-line"><img class="fi-small" src="images/fsmall2.svg" alt=""><span>Маленький текст 2</span></div>
+                    <div class="feature-column">
+                        <a class="feature-suggestion-item" href="#/app/4" data-app-id="4">
+                            <img class="feature-suggestion-icon" src="images/ficon1.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 4</div>
+                                <div class="feature-suggestion-category">Описание 4</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.0</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/5" data-app-id="5">
+                            <img class="feature-suggestion-icon" src="images/ficon2.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 5</div>
+                                <div class="feature-suggestion-category">Описание 5</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.6</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/6" data-app-id="6">
+                            <img class="feature-suggestion-icon" src="images/ficon3.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 6</div>
+                                <div class="feature-suggestion-category">Описание 6</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.3</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-
-                <a class="feature-item" href="#/app/3" data-app-id="3">
-                    <img class="feature-item-icon" src="images/ficon3.svg" alt="">
-                    <div class="feature-item-content">
-                        <div class="fi-line">Первая строка 3</div>
-                        <div class="fi-line">Вторая строка 3</div>
-                        <div class="fi-line"><img class="fi-small" src="images/fsmall3.svg" alt=""><span>Маленький текст 3</span></div>
+                    <div class="feature-column">
+                        <a class="feature-suggestion-item" href="#/app/7" data-app-id="7">
+                            <img class="feature-suggestion-icon" src="images/ficon1.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 7</div>
+                                <div class="feature-suggestion-category">Описание 7</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.7</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/8" data-app-id="8">
+                            <img class="feature-suggestion-icon" src="images/ficon2.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 8</div>
+                                <div class="feature-suggestion-category">Описание 8</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.4</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="feature-suggestion-item" href="#/app/9" data-app-id="9">
+                            <img class="feature-suggestion-icon" src="images/ficon3.svg" alt="">
+                            <div class="feature-suggestion-content">
+                                <div class="feature-suggestion-name">Приложение 9</div>
+                                <div class="feature-suggestion-category">Описание 9</div>
+                                <div class="feature-suggestion-rating">
+                                    <span class="feature-suggestion-star">★</span>
+                                    <span class="feature-suggestion-rating-value">4.9</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
         </section>
             <button class="carousel-control next" aria-label="Следующие">›</button>
@@ -974,6 +1058,18 @@
             
             // Сохраняем appId в data-атрибут для будущего использования
             appPageContent.setAttribute('data-app-id', appId);
+            
+            // Добавляем кнопку загрузки прямо в body, чтобы она всегда была видна
+            let downloadBtn = document.getElementById('appDownloadBtn');
+            if (!downloadBtn) {
+                downloadBtn = document.createElement('button');
+                downloadBtn.className = 'app-download-btn';
+                downloadBtn.id = 'appDownloadBtn';
+                downloadBtn.textContent = 'Загрузить';
+                document.body.appendChild(downloadBtn);
+            } else {
+                downloadBtn.style.display = 'block';
+            }
 
             homePage.classList.add('hidden');
             appPage.classList.remove('hidden');
@@ -1311,27 +1407,43 @@
             // Отправка отзыва
             if (submitReviewButton) {
                 submitReviewButton.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Stop propagation
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     if (selectedRating === 0) {
                         alert('Пожалуйста, выберите оценку');
                         return;
                     }
                     
-                    const reviewText = reviewTextInput.value.trim();
-                    if (!reviewText) {
+                    // Получаем элемент заново на случай, если он был пересоздан
+                    const currentReviewTextInput = document.getElementById('reviewTextInput');
+                    if (!currentReviewTextInput) {
+                        console.error('Поле ввода отзыва не найдено');
+                        return;
+                    }
+                    
+                    const reviewText = currentReviewTextInput.value.trim();
+                    if (!reviewText || reviewText.length === 0) {
                         alert('Пожалуйста, напишите отзыв');
                         return;
                     }
                     
-                    // Здесь можно добавить логику отправки отзыва
                     console.log('Отзыв отправлен:', { rating: selectedRating, text: reviewText });
                     
                     // Закрываем модальное окно
-                    reviewModal.classList.add('hidden');
+                    if (reviewModal) {
+                        reviewModal.classList.add('hidden');
+                    }
                     document.body.style.overflow = '';
-                    reviewTextInput.value = '';
+                    
+                    // Очищаем поля
+                    if (currentReviewTextInput) {
+                        currentReviewTextInput.value = '';
+                    }
                     selectedRating = 0;
                     updateReviewStars(0);
+                    
+                    setTimeout(() => alert('Отзыв успешно отправлен!'), 100);
                 });
             }
         }
@@ -1515,6 +1627,13 @@
             appPage.classList.add('hidden');
             mainHeader.classList.remove('hidden');
             appHeader.classList.add('hidden');
+            
+            // Скрываем кнопку загрузки на главной странице
+            const downloadBtn = document.getElementById('appDownloadBtn');
+            if (downloadBtn) {
+                downloadBtn.style.display = 'none';
+            }
+            
             if (window.location.hash) {
                 window.location.hash = '';
             }
@@ -1544,6 +1663,7 @@
         const appSearchButton = document.getElementById('appSearchButton');
         const searchModal = document.getElementById('searchModal');
         const closeSearchButton = document.getElementById('closeSearchButton');
+        const searchSubmitButton = document.getElementById('searchSubmitButton');
         const searchInput = document.getElementById('searchInput');
         const mainSearchInput = document.querySelector('.searchbar input');
 
@@ -1585,6 +1705,37 @@
             e.stopPropagation();
             closeSearch();
         });
+        
+        // Обработчик для кнопки поиска
+        if (searchSubmitButton) {
+            searchSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const query = searchInput.value.trim();
+                if (query) {
+                    // Здесь можно добавить логику поиска
+                    console.log('Поиск:', query);
+                    // Закрываем модальное окно после поиска
+                    closeSearch();
+                }
+            });
+        }
+        
+        // Поиск при нажатии Enter в поле ввода
+        if (searchInput) {
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        // Здесь можно добавить логику поиска
+                        console.log('Поиск:', query);
+                        // Закрываем модальное окно после поиска
+                        closeSearch();
+                    }
+                }
+            });
+        }
         
         // Закрываем при клике на overlay (фон)
         searchModal.addEventListener('click', (e) => {
