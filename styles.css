@@ -4131,3 +4131,39 @@ body.accessibility-mode .auth-modal-content {
 .my-review-delete-btn:active {
     background-color: #990000;
 }
+/* Mobile accessibility mode for info-block */
+@media (max-width: 700px) {
+    body.accessibility-mode .info-columns {
+        flex-direction: column !important;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    body.accessibility-mode .info-col {
+        width: 100% !important;
+        max-width: 300px;
+        margin-bottom: 20px;
+        padding: 20px;
+        font-size: 1.2em;
+        flex: none !important;
+    }
+    
+    body.accessibility-mode .info-icon-big {
+        width: 80px;
+        height: 80px;
+    }
+    
+    body.accessibility-mode .info-text {
+        font-size: 1.4em;
+        margin: 15px 0;
+    }
+    
+    body.accessibility-mode .info-row {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+    
+    body.accessibility-mode .info-bottom {
+        font-size: 1.1em;
+    }
+}
