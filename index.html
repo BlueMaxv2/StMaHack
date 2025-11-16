@@ -655,6 +655,24 @@
         <div class="tutorial-highlight" id="tutorialHighlight"></div>
     </div>
 
+    <!-- Contact Modal -->
+    <div id="contactModal" class="auth-modal hidden">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h3 class="auth-modal-title">Связаться с нами</h3>
+                <button id="closeContactButton" class="auth-close-btn" aria-label="Закрыть">×</button>
+            </div>
+            <div class="auth-modal-body">
+                <div class="auth-form">
+                    <input type="text" id="contactName" class="auth-input" placeholder="Ваше имя" required>
+                    <input type="email" id="contactEmail" class="auth-input" placeholder="E-mail" required>
+                    <textarea id="contactMessage" class="auth-input" placeholder="Сообщение" rows="5" required style="resize: vertical; min-height: 120px;"></textarea>
+                    <button id="contactSubmitButton" class="auth-submit-btn">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const carousel = document.getElementById('carousel');
         const prevBtn = document.querySelector('.carousel-control.prev');
@@ -1476,6 +1494,12 @@
                         </svg>
                         <span class="profile-menu-text">Мои приложения</span>
                     </button>
+                    <button class="profile-menu-item" id="logoutButton">
+                        <svg class="profile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" fill="#333"/>
+                        </svg>
+                        <span class="profile-menu-text">Выйти из аккаунта</span>
+                    </button>
                 </div>
             `;
             
@@ -1505,6 +1529,18 @@
                     newBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         navigateToMyReviews();
+                    });
+                }
+                
+                const logoutBtn = document.getElementById('logoutButton');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (confirm('Вы уверены, что хотите выйти из аккаунта?')) {
+                            localStorage.removeItem('userEmail');
+                            localStorage.removeItem('userReviews');
+                            location.reload();
+                        }
                     });
                 }
             }, 100);
@@ -1643,7 +1679,7 @@
                         </svg>
                         <span class="settings-menu-text">О RuStore</span>
                     </button>
-                    <button class="settings-menu-item">
+                    <button class="settings-menu-item" id="contactUsButton">
                         <svg class="settings-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#333"/>
                         </svg>
@@ -1711,6 +1747,18 @@
             // Применяем сохраненные настройки
             applyDarkTheme(darkThemeEnabled);
             applyAccessibilityMode(accessibilityEnabled);
+            
+            // Обработчик для кнопки "Свяжитесь с нами"
+            const contactUsButton = document.getElementById('contactUsButton');
+            if (contactUsButton) {
+                contactUsButton.addEventListener('click', () => {
+                    const contactModal = document.getElementById('contactModal');
+                    if (contactModal) {
+                        contactModal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            }
         }
 
         // Apply dark theme
@@ -3251,6 +3299,59 @@
         setTimeout(() => {
             addMouseWheelSupport();
         }, 500);
+        
+        // Contact modal handlers
+        const contactModal = document.getElementById('contactModal');
+        const closeContactButton = document.getElementById('closeContactButton');
+        const contactSubmitButton = document.getElementById('contactSubmitButton');
+        
+        if (closeContactButton) {
+            closeContactButton.addEventListener('click', () => {
+                contactModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        if (contactModal) {
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) {
+                    contactModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        if (contactSubmitButton) {
+            contactSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('contactName').value.trim();
+                const email = document.getElementById('contactEmail').value.trim();
+                const message = document.getElementById('contactMessage').value.trim();
+                
+                if (!name || !email || !message) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+                
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Пожалуйста, введите корректный e-mail');
+                    return;
+                }
+                
+                console.log('Сообщение отправлено:', { name, email, message });
+                
+                contactModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                
+                // Очищаем поля
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactMessage').value = '';
+                
+                alert('Спасибо за обращение! Мы свяжемся с вами в ближайшее время.');
+            });
+        }
 
         // Auth Modals Management
         const loginModal = document.getElementById('loginModal');

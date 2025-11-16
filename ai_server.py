@@ -36,6 +36,7 @@ class AIChat:
     def try_groq(self, message: str, history: list = None) -> str:
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
+            print("ERROR: GROQ_API_KEY not found in environment variables")
             return None
 
         try:
@@ -43,6 +44,7 @@ class AIChat:
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json"
             }
+            print(f"Making request to Groq API with key: {api_key[:10]}...")
 
             messages = [
                 {
@@ -85,9 +87,11 @@ class AIChat:
                 data = response.json()
                 return data["choices"][0]["message"]["content"]
             else:
+                print(f"ERROR: Groq API returned status {response.status_code}: {response.text}")
                 return None
 
-        except Exception:
+        except Exception as e:
+            print(f"ERROR: Exception in Groq API call: {str(e)}")
             return None
 
     def generate_response(self, message: str, history: list = None) -> str:
@@ -124,9 +128,14 @@ async def serve_styles_v2():
 
 @app.get("/api/health")
 async def health_check():
+    api_key = os.getenv("GROQ_API_KEY")
     return {
         "status": "healthy",
-        "model_initialized": os.getenv("GROQ_API_KEY") is not None
+        "model_initialized": api_key is not None,
+        "api_key_present": api_key is not None,
+        "api_key_length": len(api_key) if api_key else 0,
+        "python_version": f"{os.sys.version_info.major}.{os.sys.version_info.minor}",
+        "env_file_check": os.path.exists(".env")
     }
 
 @app.post("/api/chat", response_model=ChatResponse)
